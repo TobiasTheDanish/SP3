@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+object Media {
+PublishingYear
+Categories
+Rating
+}
+object Movies
+object Series{
+Seasons
+Episodes
+}
+object User {
+Username
+Password
+}
+object StartMenu {
+Sign-up
+Log-in
+}
+object MainMenu {
+Search for media
+List of watched media
+List of saved media
+}
+
+Media <|-- Movies
+Media <|-- Series
+
+
+
+@enduml
