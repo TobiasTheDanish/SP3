@@ -4,11 +4,11 @@
 autonumber
 Main -> Stream: Application started
 Stream -> StartMenu: Prompt user to log-in
-StartMenu -> TextUI: "Enter username:"
+StartMenu -> TextUI: displayMessage("Enter username:")
 TextUI -> StartMenu: username = getInput()
 StartMenu -> TextUI: If username is not found: "Create new user, or try again?"
-TextUI -> StartMenu
-StartMenu -> TextUI: "Enter password:"
+TextUI -> StartMenu:
+StartMenu -> TextUI: displayMessage("Enter password:")
 TextUI -> StartMenu: password = getInput()
 
 StartMenu -> Stream: return user to currentUser
