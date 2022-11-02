@@ -1,7 +1,84 @@
 @startuml
 'https://plantuml.com/class-diagram
+interface IMedia {
+    + {abstract} String getName()
+    + {abstract} String getPublishingYear()
+    + {abstract} Arraylist<String> getCategories()
+    + {abstract} float getRating()
+    + {abstract} void play()
+    + {abstract} void pause()
+}
+abstract class AMedia implements IMedia {
+    + String name
+    + String publishingYear
+    + Arraylist<String> categories
+    + float rating
+    + AMedia(String name, String publishingYear, Arraylist<String> categories, float rating)
+    + void pause()
+}
+class Movie extends AMedia {
+    + Movie(String name, String publishingYear, Arraylist<String> categories, float rating)
+    + void play()
+}
+class Series extends AMedia {
+    - int seasons
+    - int episodes
+    + Series(String name, String publishingYear, Arraylist<String> categories, float rating, int seasons, int episodes)
+    + void play()
+    + int getSeasons()
+    + int getEpisodes()
+}
+class User {
+    - String username
+    - String password
+    - ArrayList<IMedia> watchedMedia
+    - ArrayList<IMedia> savedMedia
+    + User(String username, String password)
+    + ArrayList<IMedia> getWatchedMedia()
+    + ArrayList<IMedia> getSavedMedia()
+    + ArrayList<IMedia> addToWatchedMedia(IMedia media)
+    + ArrayList<IMedia> addToSavedMedia(IMedia media)
+}
+class StartMenu {
+    - String currentUsername
+    - String currentPassword
+    + User signUp()
+    + User logIn()
+    - boolean existingUsername(String username)
+    - boolean correctPassword(String password)
+}
+class MainMenu {
+    + IMedia Search(String mediaName)
+    + Arraylist<IMedia> SearchCategory(String category)
+    + Arraylist<IMedia> getUsersWatchedMedia(User user)
+    + Arraylist<IMedia> getUsersSavedMedia(User user)
+}
+
+class TextUI {
+    + {static} void displayMessage(String msg)
+    + {static} String getInput()
+}
 
 class Main {
+    + {static} void main(String[] args)
 }
+
+class Stream{
+    - User currentUser
+    - StartMenu startMenu
+    - MainMenu mainMenu
+    + {static} ArrayList<IMedia> Movies
+    + {static} ArrayList<IMedia> Series
+    + Stream()
+    + void start()
+    + void watch(IMedia media)
+}
+
+Main *-- Stream
+
+Stream *-- StartMenu
+Stream *-- MainMenu
+Stream *-- User
+MainMenu *-- IMedia
 
 @enduml
