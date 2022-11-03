@@ -1,6 +1,5 @@
 @startuml
 !pragma layout smetana
-'https://plantuml.com/class-diagram
 
 interface IMedia {
     + {abstract} String getName()
@@ -61,26 +60,31 @@ class TextUI {
     + {static} String getInput()
 }
 
+class FileIO {
+    + {static} String readFile(String fileName)
+    + {static} void writeToFile(String fileName, String data)
+}
+
 class Main {
     + {static} void main(String[] args)
 }
 
-class Stream{
+class Application {
     - User currentUser
     - StartMenu startMenu
     - MainMenu mainMenu
     + {static} ArrayList<IMedia> Movies
     + {static} ArrayList<IMedia> Series
     + Stream()
-    + void start()
+    + void run()
     + void watch(IMedia media)
 }
 
-Main *-- Stream
+Main *-- Application
 
-Stream *-- StartMenu
-Stream *-- MainMenu
-Stream *-- User
+Application *-- StartMenu
+Application *-- MainMenu
+Application *-- User
 MainMenu *-- IMedia
 
 @enduml
