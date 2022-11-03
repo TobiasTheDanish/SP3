@@ -1,20 +1,18 @@
 public class StartMenu {
+    
     private String currentUsername;
     private String currentPassword;
-    public signUp()
-    {
+
+    public signUp() {
 
     }
-    public logIn()
-    {
+    public logIn() {
 
     }
-    private boolean existingUsername( String username)
-    {
+    private boolean existingUsername(String username) {
 
     }
-    private correctPassword( String password)
-    {
+    private correctPassword(String password) {
         
     }
 }
