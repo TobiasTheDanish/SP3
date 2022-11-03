@@ -2,6 +2,8 @@ public class Main
 {
     public static void main(String[] args)
     {
-        System.out.println("Hello world!");
+        User user1 = new User("Bob", "kodeord1234");
+        FileIO fileIO = new FileIO();
+        fileIO.writeToFile(user1);
     }
 }
