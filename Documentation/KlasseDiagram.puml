@@ -1,5 +1,6 @@
 @startuml
-'https://plantuml.com/class-diagram
+!pragma layout smetana
+
 interface IMedia {
     + {abstract} String getName()
     + {abstract} String getPublishingYear()
@@ -49,7 +50,7 @@ class StartMenu {
 }
 class MainMenu {
     + IMedia Search(String mediaName)
-    + Arraylist<IMedia> SearchCategory(String category)
+    + Arraylist<IMedia> searchCategory(String category)
     + Arraylist<IMedia> getUsersWatchedMedia(User user)
     + Arraylist<IMedia> getUsersSavedMedia(User user)
 }
