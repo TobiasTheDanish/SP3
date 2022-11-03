@@ -1,5 +1,6 @@
 @startuml
 !pragma layout smetana
+'https://plantuml.com/class-diagram
 
 interface IMedia {
     + {abstract} String getName()
