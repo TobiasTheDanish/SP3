@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Stream -> MainMenu: Prompt user with options
+MainMenu -> TextUI: Display selection
+
+@enduml

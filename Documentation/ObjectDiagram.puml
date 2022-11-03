@@ -1,6 +1,10 @@
 @startuml
 !pragma layout smetana
+<<<<<<< HEAD
 'https://plantuml.com/class-diagram
+=======
+
+>>>>>>> origin/TobiasBerg
 object Media {
 PublishingYear
 Categories
