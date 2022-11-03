@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6edc585c-d383-472f-a4a7-3bff08dc8316" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Stream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+    <list default="true" id="6edc585c-d383-472f-a4a7-3bff08dc8316" name="Changes" comment="Stream class 03-11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,6 +80,14 @@
       <option name="presentableId" value="Default" />
       <updated>1667301171160</updated>
     </task>
+    <task id="LOCAL-00001" summary="Stream class 03-11">
+      <created>1667464452187</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1667464452187</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -94,5 +100,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Stream class 03-11" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stream class 03-11" />
   </component>
 </project>
