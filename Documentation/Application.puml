@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Application --> Application: run()
+Application --> StartMenu: Initialise login/signup
+StartMenu --> Application: return currentUser
+
+Application --> MainMenu: Initialise MainMenu
+@enduml
