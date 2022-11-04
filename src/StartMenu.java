@@ -15,6 +15,6 @@ public class StartMenu {
     }
     private correctPassword( String password)
     {
-        
+
     }
 }
