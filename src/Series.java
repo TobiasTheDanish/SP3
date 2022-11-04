@@ -33,5 +33,5 @@ public class Series extends AMedia {
     public float getRating(){
         return rating;
     }
-    
+
 }
