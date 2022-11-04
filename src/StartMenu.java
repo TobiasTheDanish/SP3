@@ -3,16 +3,16 @@ public class StartMenu {
     private String currentUsername;
     private String currentPassword;
 
-    public signUp() {
+    public void signUp() {
 
     }
-    public logIn() {
+    public void logIn() {
 
     }
     private boolean existingUsername(String username) {
-
+        return false;
     }
-    private correctPassword(String password) {
-        
+    private boolean correctPassword(String password) {
+        return false;
     }
 }

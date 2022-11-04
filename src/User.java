@@ -20,11 +20,19 @@ public class User extends Stream {
         return savedMedia;
     }
 
-    public ArrayList<IMedia> addToWatchedMedia = new ArrayList<IMedia>(IMedia media){
-
+    public ArrayList<IMedia> addToWatchedMedia (IMedia media){
+        return new ArrayList<IMedia>();
     }
 
-    public ArrayList<IMedia> addToSavedMedia = new ArrayList<IMedia>(IMedia media){
+    public ArrayList<IMedia> addToSavedMedia (IMedia media) {
+        return new ArrayList<IMedia>();
+    }
 
+    public String getUsername(){
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
     }
 }
