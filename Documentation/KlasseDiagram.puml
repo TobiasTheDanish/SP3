@@ -1,10 +1,6 @@
 @startuml
 !pragma layout smetana
-<<<<<<<<< Temporary merge branch 1
-'https://plantuml.com/class-diagram
-=========
 
->>>>>>>>> Temporary merge branch 2
 interface IMedia {
     + {abstract} String getName()
     + {abstract} String getPublishingYear()
@@ -54,11 +50,9 @@ class StartMenu {
 }
 class MainMenu {
     + IMedia Search(String mediaName)
-<<<<<<<<< Temporary merge branch 1
     + Arraylist<IMedia> SearchCategory(String category)
 =========
     + Arraylist<IMedia> searchCategory(String category)
->>>>>>>>> Temporary merge branch 2
     + Arraylist<IMedia> getUsersWatchedMedia(User user)
     + Arraylist<IMedia> getUsersSavedMedia(User user)
 }
