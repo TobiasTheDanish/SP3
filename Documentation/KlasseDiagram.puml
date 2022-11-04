@@ -50,7 +50,11 @@ class StartMenu {
 }
 class MainMenu {
     + IMedia Search(String mediaName)
+<<<<<<< HEAD
     + Arraylist<IMedia> searchCategory(String category)
+=======
+    + Arraylist<IMedia> SearchCategory(String category)
+>>>>>>> origin/Sander
     + Arraylist<IMedia> getUsersWatchedMedia(User user)
     + Arraylist<IMedia> getUsersSavedMedia(User user)
 }
