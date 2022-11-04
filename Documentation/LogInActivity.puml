@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+start
+:Application started;
+
+repeat:Prompt user to log-in\n"Enter username:";
+    if(Username exist?) is (yes) then
+    break
+    else (no)
+    :Prompt user to:\n "Create new user(N) or try again(T);
+    endif
+repeat while (Create new user?) is (no) not (yes)
+            if(New user?) is (no) then
+            repeat:Prompt user for password;
+               repeat while(Password correct?) is (no) not (yes, or new user);
+               :login;
+
+            else (yes)
+                :Prompt user:\n"You chose to create a new user";
+                :"Please enter your password";
+                :login;
+
+
+        endif
+:Return logged in user to Application;
+stop
+@enduml
