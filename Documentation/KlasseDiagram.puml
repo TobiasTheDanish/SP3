@@ -35,12 +35,12 @@ class User {
     - ArrayList<IMedia> watchedMedia
     - ArrayList<IMedia> savedMedia
     + User(String username, String password)
-    + String getUsername()
-    + String getPassword()
     + ArrayList<IMedia> getWatchedMedia()
     + ArrayList<IMedia> getSavedMedia()
-    + void addToWatchedMedia(IMedia media)
-    + void addToSavedMedia(IMedia media)
+    + String getUsername()
+    + String getPassword()
+    + ArrayList<IMedia> addToWatchedMedia(IMedia media)
+    + ArrayList<IMedia> addToSavedMedia(IMedia media)
 }
 class StartMenu {
     - String currentUsername

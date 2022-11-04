@@ -21,12 +21,12 @@ public class User
         return savedMedia;
     }
 
-    public ArrayList<IMedia> addToWatchedMedia (IMedia media){
-        return new ArrayList<IMedia>();
+    public void addToWatchedMedia (IMedia media){
+        //Add the selected movie to: ArrayList<IMedia> getWatchedMedia()
     }
 
-    public ArrayList<IMedia> addToSavedMedia (IMedia media) {
-        return new ArrayList<IMedia>();
+    public void addToSavedMedia (IMedia media){
+        //Add the selected movie to: ArrayList<IMedia> getSavedMedia()
     }
 
     public String getUsername(){

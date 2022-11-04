@@ -1,5 +1,5 @@
 public class StartMenu {
-    
+
     private String currentUsername;
     private String currentPassword;
 
