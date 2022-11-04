@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
-public class User extends Stream {
+public class User
+{
 
     private String username;
     private String password;
