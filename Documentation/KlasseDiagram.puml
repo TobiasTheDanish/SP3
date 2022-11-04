@@ -37,6 +37,8 @@ class User {
     + User(String username, String password)
     + ArrayList<IMedia> getWatchedMedia()
     + ArrayList<IMedia> getSavedMedia()
+    + String getUsername()
+    + String getPassword()
     + ArrayList<IMedia> addToWatchedMedia(IMedia media)
     + ArrayList<IMedia> addToSavedMedia(IMedia media)
 }
