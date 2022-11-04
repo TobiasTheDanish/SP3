@@ -1,25 +1,35 @@
 import java.util.ArrayList;
 
-public class Movie extends AMedia {
+public class Movie extends AMedia
+    {
     public Movie(String name, String publishingYear, ArrayList<String> categories, float rating) {
         super(name, publishingYear, categories, rating);
     }
 
-    public void play() {
+    public void play()
+    {
+        /*
+        After pressing play display the movie title
+        maybe display a rating og time length
+
+         */
     }
 
-    public void pause(){
-    }
-    public String getName(){
+
+    public String getName()
+    {
         return name;
     }
-    public String getPublishingYear(){
+    public String getPublishingYear()
+    {
         return publishingYear;
     }
-    public ArrayList<String> getCategories(){
+    public ArrayList<String> getCategories()
+    {
         return categories;
     }
-    public float getRating(){
+    public float getRating()
+    {
         return rating;
     }
 }

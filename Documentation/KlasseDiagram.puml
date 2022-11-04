@@ -37,6 +37,8 @@ class User {
     + User(String username, String password)
     + ArrayList<IMedia> getWatchedMedia()
     + ArrayList<IMedia> getSavedMedia()
+    + String getUsername()
+    + String getPassword()
     + ArrayList<IMedia> addToWatchedMedia(IMedia media)
     + ArrayList<IMedia> addToSavedMedia(IMedia media)
 }
@@ -78,6 +80,7 @@ class Application {
     + Stream()
     + void run()
     + void watch(IMedia media)
+    - ArrayList<IMedia> getMediaData(String fileName)
 }
 
 Main *-- Application
@@ -86,5 +89,6 @@ Application *-- StartMenu
 Application *-- MainMenu
 Application *-- User
 MainMenu *-- IMedia
+User *-- IMedia
 
 @enduml
