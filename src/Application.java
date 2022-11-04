@@ -2,15 +2,14 @@ import java.util.ArrayList;
 
 public class Application {
 
-    private User currentUser;
-    private StartMenu startmenu;
+    private static User currentUser;
     public static ArrayList <IMedia> Movies;
     public static ArrayList <IMedia> Series;
    public Application() {
 
    }
-    public void run() {
-
+    public static void run() {
+        currentUser = StartMenu.logIn();
     }
     public void watch(IMedia media) {
 

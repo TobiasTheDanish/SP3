@@ -1,5 +1,5 @@
 @startuml
-'https://plantuml.com/sequence-diagram
+'https://plantuml.com/activity-diagram
 
 autonumber
 Main -> Application: Application started
@@ -14,5 +14,4 @@ TextUI -> StartMenu: password = getInput()
 StartMenu -> StartMenu: Create new user
 
 StartMenu -> Application: return user to currentUser
-
 @enduml

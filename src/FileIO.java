@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class FileIO {
 
-    public ArrayList<String> readFile() {
-        File file = new File("data/userdata.csv");
+    public static ArrayList<String> readFile(String filePath) {
+        File file = new File(filePath);
         ArrayList<String> data = new ArrayList<>();
         try {
             Scanner input = new Scanner(file);
@@ -23,8 +23,8 @@ public class FileIO {
     }
 
 
-    public void writeToFile(User currentUser) {
-       ArrayList<String> data = readFile();
+    public static void writeToFile(User currentUser) {
+       ArrayList<String> data = readFile("data/userdata.csv");
         for(int i = 0; i < data.size(); i++) {
             if(data.get(i).split(",")[0].equals(currentUser.getUsername())){
                 data.set(i, currentUser.getUsername() + "," + currentUser.getPassword());
