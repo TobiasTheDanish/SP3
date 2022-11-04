@@ -1,21 +1,13 @@
 import java.util.ArrayList;
 
 public class StartMenu {
-    
-    private static String currentUsername;
-    private static String currentPassword;
 
-    public void signUp() {
-
-    }
     public static User logIn() {
 
-        TextUI.displayMessage("Welcome to Dataflix.");
-        currentUsername = TextUI.getInput("Please enter username: ");
-
-
+        String currentPassword;
+        String currentUsername = TextUI.getInput("Please enter username: ");
         if(existingUsername(currentUsername)){
-           currentPassword = TextUI.getInput("Please enter your password: ");
+            currentPassword = TextUI.getInput("Please enter your password: ");
            if(correctPassword(currentPassword)){
                System.out.println("You've successfully logged in to Dataflix");
 
@@ -36,30 +28,33 @@ public class StartMenu {
         else if(!existingUsername(currentUsername)){
             TextUI.displayMessage("Looks like we don't have any users with that username.");
             TextUI.displayMessage("What would you like to do?");
-            String input = TextUI.getInput("Create new user(N) or Try again(T)");
-            if(input.equalsIgnoreCase("T")){
+                String input;
+            do {
+                    input = TextUI.getInput("Create new user(N) or Try again(T)");
+                if (input.equalsIgnoreCase("T")) {
 
-                //MAKE THE USER TRY TO ENTER ANOTHER USERNAME
+                    return StartMenu.logIn();
 
-            } else if (input.equalsIgnoreCase("N")) {
+                } else if (input.equalsIgnoreCase("N")) {
 
-                TextUI.displayMessage("Alright, let's create a new user.");
-               currentPassword = TextUI.getInput("Please enter a password");
-                return new User(currentUsername, currentPassword);
-
-
-            } else {
-                System.out.println("Something went wrong#2");
+                    TextUI.displayMessage("Alright, let's create a new user.");
+                    currentPassword = TextUI.getInput("Please enter a password: ");
+                    System.out.println("You've successfully created an account and is being logged in to Dataflix");
+                    User user = new User(currentUsername, currentPassword);
+                    FileIO.addToFile(user);
+                    return user;
+                }
             }
+            while(!input.equalsIgnoreCase("N") && !input.equalsIgnoreCase("T"));
         }
-        return new User("1", "11");
+        return new User("-1", "-1");
     }
 
 
     private static boolean existingUsername(String username) {
         ArrayList<String> data = FileIO.readFile("data/userdata.csv");
         for(int i = 0; i < data.size(); i++) {
-            if (data.get(i).split(",")[0].equals(username)) {
+            if (data.get(i).split(",")[0].equalsIgnoreCase(username)) {
                 return true;
             }
         }
