@@ -7,8 +7,7 @@
     <list default="true" id="1a65cc85-b38d-429f-bfd2-18e221719b8d" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Documentation/LogInActivity.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentation/LogInSequence.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Documentation/LogInSequence.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

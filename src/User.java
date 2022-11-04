@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class User {
+public class User extends Stream {
 
     private String username;
     private String password;
@@ -20,12 +20,12 @@ public class User {
         return savedMedia;
     }
 
-    public void addToWatchedMedia (IMedia media){
-        //Add the selected movie to: ArrayList<IMedia> getWatchedMedia()
+    public ArrayList<IMedia> addToWatchedMedia (IMedia media){
+        return new ArrayList<IMedia>();
     }
 
-    public void addToSavedMedia (IMedia media){
-        //Add the selected movie to: ArrayList<IMedia> getSavedMedia()
+    public ArrayList<IMedia> addToSavedMedia (IMedia media) {
+        return new ArrayList<IMedia>();
     }
 
     public String getUsername(){
