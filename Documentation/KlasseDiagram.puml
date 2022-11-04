@@ -37,6 +37,8 @@ class User {
     + User(String username, String password)
     + ArrayList<IMedia> getWatchedMedia()
     + ArrayList<IMedia> getSavedMedia()
+    + String getUsername()
+    + String getPassword()
     + ArrayList<IMedia> addToWatchedMedia(IMedia media)
     + ArrayList<IMedia> addToSavedMedia(IMedia media)
 }
@@ -50,6 +52,8 @@ class StartMenu {
 }
 class MainMenu {
     + IMedia Search(String mediaName)
+    + Arraylist<IMedia> SearchCategory(String category)
+=========
     + Arraylist<IMedia> searchCategory(String category)
     + Arraylist<IMedia> getUsersWatchedMedia(User user)
     + Arraylist<IMedia> getUsersSavedMedia(User user)
@@ -60,31 +64,26 @@ class TextUI {
     + {static} String getInput()
 }
 
-class FileIO {
-    + {static} String readFile(String fileName)
-    + {static} void writeToFile(String fileName, String data)
-}
-
 class Main {
     + {static} void main(String[] args)
 }
 
-class Application {
+class Stream{
     - User currentUser
     - StartMenu startMenu
     - MainMenu mainMenu
     + {static} ArrayList<IMedia> Movies
     + {static} ArrayList<IMedia> Series
     + Stream()
-    + void run()
+    + void start()
     + void watch(IMedia media)
 }
 
-Main *-- Application
+Main *-- Stream
 
-Application *-- StartMenu
-Application *-- MainMenu
-Application *-- User
+Stream *-- StartMenu
+Stream *-- MainMenu
+Stream *-- User
 MainMenu *-- IMedia
 
 @enduml

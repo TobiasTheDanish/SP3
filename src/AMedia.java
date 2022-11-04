@@ -15,6 +15,9 @@ public abstract class AMedia implements IMedia {
     }
 
     public void pause(){
-
+        //Print out option for pausing the movie/episode
+        //Make an input available (for example "p") for pausing the movie/episode
+        //Once it is paused, print out a message to make the user aware
+        //Make an input available once again (for example "p" again, for easy use), to unpause the movie/episode
     }
 }
