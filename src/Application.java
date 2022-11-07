@@ -38,4 +38,12 @@ public class Application
        //When we have looped over all the strings in data, return the Arraylist<IMedia>
        return new ArrayList<>();
     }
+
+    public static void clearConsole()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            TextUI.displayMessage("");
+        }
+    }
 }
