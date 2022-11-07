@@ -15,6 +15,7 @@ public class Series extends AMedia {
         //Use TextUI.displayMessage(msg) to write to the console with the following string being msg:
         //Write to the console that:
             //name + " S" + seasons + ":E" + episodes + " is now playing!";
+        TextUI.displayMessage(name + " S" + seasons + ":E" + episodes + " is now playing!");
     }
 
     public int getSeasons(){

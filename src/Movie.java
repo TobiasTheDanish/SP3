@@ -6,6 +6,7 @@ public class Movie extends AMedia {
     }
 
     public void play() {
+        TextUI.displayMessage(name + " is now playing!");
     }
 
     public void pause(){

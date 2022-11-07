@@ -2,19 +2,30 @@ import java.util.ArrayList;
 
 public class MainMenu {
 
-    public IMedia Search(String mediaName){
-        return new Movie("1", "1", new ArrayList<>(), 12);
+    public static IMedia Search(String mediaName){
+        if (mediaName.equalsIgnoreCase("null"))
+        {
+            return null;
+        }
+
+        return new Movie("Test", "1", new ArrayList<>(), 12);
     }
 
-    public ArrayList<IMedia> searchCategory(String category){
-        return new ArrayList<>();
+    public static ArrayList<IMedia> searchCategory(String category){
+        ArrayList<IMedia> test = new ArrayList<>();
+        test.add(new Movie("Test", "1", new ArrayList<>(), 9.5f));
+        return test;
     }
 
-    public ArrayList<IMedia> getUsersWatchedMedia(User user){
-        return new ArrayList<>();
+    public static ArrayList<IMedia> getUsersWatchedMedia(User user){
+        ArrayList<IMedia> test = new ArrayList<>();
+        test.add(new Movie("Test", "1", new ArrayList<>(), 9.5f));
+        return test;
     }
 
-    public ArrayList<IMedia> getUsersSavedMedia(User user){
-        return new ArrayList<>();
+    public static ArrayList<IMedia> getUsersSavedMedia(User user){
+        ArrayList<IMedia> test = new ArrayList<>();
+        test.add(new Movie("Test", "1", new ArrayList<>(), 9.5f));
+        return test;
     }
 }

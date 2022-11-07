@@ -6,8 +6,8 @@ public class StartMenu {
     public void signUp() {
 
     }
-    public void logIn() {
-
+    public static User logIn() {
+        return new User("Bob", "1234");
     }
     private boolean existingUsername(String username) {
         return false;
