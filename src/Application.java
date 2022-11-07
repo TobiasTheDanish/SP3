@@ -7,12 +7,7 @@ public class Application
     private static User currentUser;
     public static ArrayList <IMedia> movies;
     public static ArrayList <IMedia> series;
-   public Application() {
-       //Init startMenu to new StartMenu object
 
-       //Set the lists of movies, according to our data file (getMediaData("data/moviedata.csv", "movie")
-       //Set the lists of series, according to our data file (getMediaData("data/seriesdata.csv", "series")
-   }
     public static void run() {
         movies = getMediaData("data/moviedata.csv", "movie");
         series = getMediaData("data/seriesdata.csv", "series");
@@ -22,18 +17,13 @@ public class Application
         TextUI.displayMessage("------------------------------");
         currentUser = StartMenu.logIn(); //Get the logged in user from the startMenu.
 
-        /*The following might need a loop, so the user can access multiple media
-
-        //Init mainMenu to new MainMenu object with currentUser as a parameter in the constructor
-        //watch(mainMenu.display()); //calls the watch function and expects mainMenu.display() to return an IMedia type
-        */
-
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("Welcome " + currentUser.getUsername() + ".");
         TextUI.getInput("Press enter to start browsing.");
 
+        displayUserOptions(); // uses the MainMenu class to display options.
 
-        displayUserOptions();
+        FileIO.writeUserDataToFile(currentUser);
 
         TextUI.displayMessage("---------------------------------------------------------");
         TextUI.displayMessage("     Thank you for using Dataflix. Logging out...");
@@ -42,6 +32,7 @@ public class Application
     public static void watch(IMedia media) {
         media.play(); //Play the passed in IMedia type
         currentUser.addToWatchedMedia(media); //Add the passed in IMedia type to the users watched list
+        TextUI.getInput("Press enter to return to main menu");
     }
 
     private static void displayUserOptions()
@@ -57,7 +48,7 @@ public class Application
                                           "2)   Search for media by category.\n" +
                                           "3)   View your saved medias.\n" +
                                           "4)   View your watched medias.\n");
-            input = TextUI.getInput("Enter your selection, or press Q to quit:");
+            input = TextUI.getInput("Enter your selection, or press Q to log out:");
 
             //Add switch case for above input
             switch (input)
@@ -81,7 +72,7 @@ public class Application
                     } while (media == null);
 
                     TextUI.displayMessage(media.getName() + " from " + media.getPublishingYear() + " was found.");
-                    watch(media);
+                    onMediaSelected(media, false);
                     break;
                 }
                 case "2":
@@ -95,7 +86,7 @@ public class Application
                         TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
                     }
 
-                    onMediaSelected(selectMedia(), false);
+                    onMediaSelected(selectMedia(categoryList), false);
                     break;
 
                 case "3":
@@ -106,7 +97,7 @@ public class Application
                         IMedia media = savedMedia.get(i);
                         TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
                     }
-                    onMediaSelected(selectMedia(), true);
+                    onMediaSelected(selectMedia(savedMedia), true);
                     break;
 
                 case "4":
@@ -117,7 +108,7 @@ public class Application
                         IMedia media = watchedMedia.get(i);
                         TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
                     }
-                    onMediaSelected(selectMedia(), false);
+                    onMediaSelected(selectMedia(watchedMedia), false);
                     break;
 
                 default:
@@ -129,13 +120,46 @@ public class Application
         while (!input.equalsIgnoreCase("q"));
     }
 
-    private static IMedia selectMedia()
+    private static IMedia selectMedia(ArrayList<IMedia> medias)
     {
-        return new Movie("Test", "1", new ArrayList<>(), 8.5f);
+        if (medias == null || medias.size()  == 0)
+        {
+            return null;
+        }
+
+        while (true)
+        {
+            String input = TextUI.getInput("Enter your selection here, or press 'Q' to return to main menu.");
+
+            switch (input)
+            {
+                case "Q":
+                case "q":
+                    return null;
+
+                default:
+                    try
+                    {
+                        int index = (Integer.parseInt(input)) - 1;
+                        return medias.get(index);
+
+                    } catch(Exception e)
+                    {
+                        TextUI.displayMessage("That was not valid input. Try again.");
+                    }
+                    break;
+            }
+        }
     }
 
     private static void onMediaSelected(IMedia selectedMedia, boolean savedMedia)
     {
+        if (selectedMedia == null)
+        {
+            return;
+        }
+
+
         String input = "";
 
         clearConsole();
@@ -148,7 +172,7 @@ public class Application
             {
                 TextUI.displayMessage("2)   Save to your saved medias list.");
             }
-            input = TextUI.getInput("Enter your selection, or press Q to quit:");
+            input = TextUI.getInput("Enter your selection, or press Q to return to the main menu:");
 
             switch (input)
             {
@@ -200,6 +224,10 @@ public class Application
                     String name = movieData[0].trim();
                     String publishingYear = movieData[1].trim();
                     List<String> list = Arrays.asList(movieData[2].split(","));
+                    for (int i = 0; i < list.size(); i++)
+                    {
+                        list.set(i, list.get(i).trim());
+                    }
                     ArrayList<String> categories = new ArrayList<>(list);
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
                     IMedia m = new Movie(name, publishingYear, categories, rating);
@@ -214,6 +242,10 @@ public class Application
                     String name = movieData[0].trim();
                     String publishingYear = movieData[1].trim();
                     List<String> list = Arrays.asList(movieData[2].split(","));
+                    for (int i = 0; i < list.size(); i++)
+                    {
+                        list.set(i, list.get(i).trim());
+                    }
                     ArrayList<String> categories = new ArrayList<>(list);
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
                     String[] seasonsAndEpisodes = movieData[4].split(",");
