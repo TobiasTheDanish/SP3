@@ -22,10 +22,14 @@ public class User
     }
 
     public void addToWatchedMedia (IMedia media){
+        watchedMedia.add(media);
+        TextUI.displayMessage(media + " has been added to watched media.");
         //Add the selected movie to: ArrayList<IMedia> getWatchedMedia()
     }
 
     public void addToSavedMedia (IMedia media){
+        savedMedia.add(media);
+        TextUI.displayMessage(media + " has been added to saved media.");
         //Add the selected movie to: ArrayList<IMedia> getSavedMedia()
     }
 
