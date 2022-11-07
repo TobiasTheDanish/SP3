@@ -106,11 +106,11 @@ public class FileIO {
             }
 
             IMedia m = savedMedia.get(savedMedia.size()-1);
-            userData += m.getName() + ",";
+            userData += m.getName();
         }
         else
         {
-            userData += "null,";
+            userData += "null";
         }
         return userData;
     }
