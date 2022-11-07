@@ -13,6 +13,7 @@ public class Series extends AMedia {
 
     public void play(){
         TextUI.displayMessage(name + " S" + seasons + " : E" + episodes + " is now playing...");
+        pause();
     }
 
     public int getSeasons(){

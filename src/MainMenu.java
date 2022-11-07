@@ -1,43 +1,32 @@
 import java.util.ArrayList;
 
 public class MainMenu {
-private User user;
 
-    public MainMenu(User user)
+    public static IMedia Search(String mediaName)
     {
-        this.user = user;
-    }
-
-    public IMedia Search(String mediaName)
-    {
-
-        for (IMedia m: Application.Movies)
+        for (IMedia m: Application.movies)
         {
-         if(m.getName().equalsIgnoreCase(mediaName))
-         {
-             return m;
-         }
+             if(m.getName().equalsIgnoreCase(mediaName))
+             {
+                 return m;
+             }
 
         }
-        for (IMedia s : Application.Series)
+        for (IMedia s : Application.series)
         {
-        if(s.getName().equalsIgnoreCase(mediaName))
-        {
-            return s;
-
+            if(s.getName().equalsIgnoreCase(mediaName))
+            {
+                return s;
+            }
         }
-
-        }
-
         return null;
-
     }
 
 
-    public ArrayList<IMedia> searchCategory(String category)
+    public static ArrayList<IMedia> searchCategory(String category)
     {
         ArrayList<IMedia> searchResults = new ArrayList<>();
-        for (IMedia m : Application.Movies)
+        for (IMedia m : Application.movies)
         {
             for (String cat : m.getCategories())
             {
@@ -47,32 +36,30 @@ private User user;
 
                 }
             }
+        }
 
-            for (IMedia s : Application.Series)
+        for (IMedia s : Application.series)
+        {
+            for (String cat : s.getCategories())
             {
-                for (String cat : s.getCategories())
+                if (cat.equalsIgnoreCase(category))
                 {
-                    if (cat.equalsIgnoreCase(category))
-                    {
-                        searchResults.add(s);
-                    }
+                    searchResults.add(s);
                 }
             }
-
-
         }
         return searchResults;
     }
 
 
-    public ArrayList<IMedia> getUsersWatchedMedia(User user)
+    public static ArrayList<IMedia> getUsersWatchedMedia(User user)
     {
         return user.getWatchedMedia();
 
     }
 
     //Add to a
-    public ArrayList<IMedia> getUsersSavedMedia(User user)
+    public static ArrayList<IMedia> getUsersSavedMedia(User user)
     {
         return user.getSavedMedia();
 

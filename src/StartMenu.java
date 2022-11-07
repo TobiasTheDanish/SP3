@@ -11,7 +11,7 @@ public class StartMenu {
             currentPassword = TextUI.getInput("Please enter your password: ");
            if(correctPassword(currentPassword)){
                System.out.println("You've successfully logged in to Dataflix");
-
+               return new User(currentUsername, currentPassword);
 
            } else {
 
