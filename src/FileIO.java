@@ -12,7 +12,7 @@ public class FileIO {
             input.nextLine();//ignore header
 
             while (input.hasNextLine()) {
-                data.add(input.nextLine());//“Egon: 30000”
+                data.add(input.nextLine());
             }
 
         } catch (FileNotFoundException e) {
@@ -22,13 +22,11 @@ public class FileIO {
         return data;
     }
 
-
-    //NAVNET ER MISVISENDE --- RENAME ---
-    public static void writeToFile(User currentUser) {
+    public static void writeUserDataToFile(User currentUser) {
         ArrayList<String> data = readFile("data/userdata.csv");
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).split(",")[0].equals(currentUser.getUsername())) {
-                data.set(i, currentUser.getUsername() + "," + currentUser.getPassword());
+                data.set(i, createUserDataString(currentUser));
             }
         }
         try {
@@ -37,9 +35,7 @@ public class FileIO {
             writer.write("username, password, watchedMovie1: watchedMovie2, savedMovie1: savedMovie2\n");
             for (String s : data) {
                 writer.write(s + "\n");
-
             }
-
             writer.close();
         } catch (IOException e) {
             System.out.println(e);
@@ -55,13 +51,67 @@ public class FileIO {
             writer.write("username, password, watchedMovie1: watchedMovie2, savedMovie1: savedMovie2\n");
             for (String s : data) {
                 writer.write(s + "\n");
-
             }
-            writer.write(user.getUsername() + "," + user.getPassword());
+            writer.write(createUserDataString(user));
 
             writer.close();
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    public static String getSingleUserData(String username)
+    {
+        ArrayList<String> data = FileIO.readFile("data/userdata.csv");
+
+        for (String s : data)
+        {
+            if (s.split(",")[0].equalsIgnoreCase(username))
+            {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    private static String createUserDataString(User user)
+    {
+        String userData = user.getUsername() + "," + user.getPassword() + ",";
+
+        ArrayList<IMedia> watchedMedia = user.getSavedMedia();
+        if (watchedMedia.size() > 0)
+        {
+            for (int j = 0; j < watchedMedia.size() - 1; j++)
+            {
+                IMedia m = watchedMedia.get(j);
+                userData += m.getName() + ":";
+            }
+
+            IMedia m = watchedMedia.get(watchedMedia.size()-1);
+            userData += m.getName() + ",";
+        }
+        else
+        {
+            userData += "null,";
+        }
+
+        ArrayList<IMedia> savedMedia = user.getSavedMedia();
+        if (savedMedia.size() > 0)
+        {
+            for (int j = 0; j < savedMedia.size() - 1; j++)
+            {
+                IMedia m = savedMedia.get(j);
+                userData += m.getName() + ":";
+            }
+
+            IMedia m = savedMedia.get(savedMedia.size()-1);
+            userData += m.getName() + ",";
+        }
+        else
+        {
+            userData += "null,";
+        }
+        return userData;
     }
 }//class end
