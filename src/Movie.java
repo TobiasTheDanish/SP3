@@ -6,13 +6,9 @@ public class Movie extends AMedia
         super(name, publishingYear, categories, rating);
     }
 
-    public void play()
-    {
-        /*
-        After pressing play display the movie title
-        maybe display a rating og time length
-
-         */
+    public void play(){
+        TextUI.displayMessage(name + " " + publishingYear + " is now playing...");
+        pause();
     }
 
         public String getName()

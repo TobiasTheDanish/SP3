@@ -5,8 +5,9 @@ public class StartMenu {
     public static User logIn() {
 
         String currentPassword;
-        String currentUsername = TextUI.getInput("Please enter username: ");
+        String currentUsername = TextUI.getInput("Please enter a username: ");
         if(existingUsername(currentUsername)){
+            TextUI.displayMessage("Looks like the username already exists.");
             currentPassword = TextUI.getInput("Please enter your password: ");
            if(correctPassword(currentPassword)){
                System.out.println("You've successfully logged in to Dataflix");
