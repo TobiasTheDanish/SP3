@@ -1,31 +1,81 @@
 import java.util.ArrayList;
 
 public class MainMenu {
+private User user;
 
-    public static IMedia Search(String mediaName){
-        if (mediaName.equalsIgnoreCase("null"))
+    public MainMenu(User user)
+    {
+        this.user = user;
+    }
+
+    public IMedia Search(String mediaName)
+    {
+
+        for (IMedia m: Application.Movies)
         {
-            return null;
+         if(m.getName().equalsIgnoreCase(mediaName))
+         {
+             return m;
+         }
+
+        }
+        for (IMedia s : Application.Series)
+        {
+        if(s.getName().equalsIgnoreCase(mediaName))
+        {
+            return s;
+
         }
 
-        return new Movie("Test", "1", new ArrayList<>(), 12);
+        }
+
+        return null;
+
     }
 
-    public static ArrayList<IMedia> searchCategory(String category){
-        ArrayList<IMedia> test = new ArrayList<>();
-        test.add(new Movie("Test", "1", new ArrayList<>(), 9.5f));
-        return test;
+
+    public ArrayList<IMedia> searchCategory(String category)
+    {
+        ArrayList<IMedia> searchResults = new ArrayList<>();
+        for (IMedia m : Application.Movies)
+        {
+            for (String cat : m.getCategories())
+            {
+                if (cat.equalsIgnoreCase(category))
+                {
+                    searchResults.add(m);
+
+                }
+            }
+
+            for (IMedia s : Application.Series)
+            {
+                for (String cat : s.getCategories())
+                {
+                    if (cat.equalsIgnoreCase(category))
+                    {
+                        searchResults.add(s);
+                    }
+                }
+            }
+
+
+        }
+        return searchResults;
     }
 
-    public static ArrayList<IMedia> getUsersWatchedMedia(User user){
-        ArrayList<IMedia> test = new ArrayList<>();
-        test.add(new Movie("Test", "1", new ArrayList<>(), 9.5f));
-        return test;
+
+    public ArrayList<IMedia> getUsersWatchedMedia(User user)
+    {
+        return user.getWatchedMedia();
+
     }
 
-    public static ArrayList<IMedia> getUsersSavedMedia(User user){
-        ArrayList<IMedia> test = new ArrayList<>();
-        test.add(new Movie("Test", "1", new ArrayList<>(), 9.5f));
-        return test;
+    //Add to a
+    public ArrayList<IMedia> getUsersSavedMedia(User user)
+    {
+        return user.getSavedMedia();
+
     }
+
 }

@@ -8,6 +8,10 @@ public class Application
     public static ArrayList <IMedia> movies;
     public static ArrayList <IMedia> series;
    public Application() {
+       //Init startMenu to new StartMenu object
+
+       //Set the lists of movies, according to our data file (getMediaData("data/moviedata.csv", "movie")
+       //Set the lists of series, according to our data file (getMediaData("data/seriesdata.csv", "series")
    }
     public static void run() {
         movies = getMediaData("data/moviedata.csv", "movie");
