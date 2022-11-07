@@ -14,7 +14,8 @@ public class Application
        //Set the lists of movies, according to our data file (getMediaData("data/moviedata.csv", "movie")
        //Set the lists of series, according to our data file (getMediaData("data/seriesdata.csv", "series")
    }
-    public void run() {
+    public static void run() {
+       StartMenu.logIn();
         //currentUser = startMenu.logIn() //Get the logged in user from the startMenu.
 
         /*The following might need a loop, so the user can access multiple media

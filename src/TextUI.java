@@ -7,7 +7,7 @@ public class TextUI {
     public static void displayMessage(String msg){
         System.out.println(msg);
     }
-    public String getInput(String msg){
+    public static String getInput(String msg){
         displayMessage(msg);
         return scn.nextLine();
     }
