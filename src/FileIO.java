@@ -79,7 +79,7 @@ public class FileIO {
     {
         String userData = user.getUsername() + "," + user.getPassword() + ",";
 
-        ArrayList<IMedia> watchedMedia = user.getSavedMedia();
+        ArrayList<IMedia> watchedMedia = user.getWatchedMedia();
         if (watchedMedia.size() > 0)
         {
             for (int j = 0; j < watchedMedia.size() - 1; j++)
