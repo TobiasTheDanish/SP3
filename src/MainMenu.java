@@ -36,14 +36,14 @@ private User user;
 
     public ArrayList<IMedia> searchCategory(String category)
     {
-        ArrayList<IMedia> tom = new ArrayList<>();
+        ArrayList<IMedia> searchResults = new ArrayList<>();
         for (IMedia m : Application.Movies)
         {
             for (String cat : m.getCategories())
             {
                 if (cat.equalsIgnoreCase(category))
                 {
-                    tom.add(m);
+                    searchResults.add(m);
 
                 }
             }
@@ -54,14 +54,14 @@ private User user;
                 {
                     if (cat.equalsIgnoreCase(category))
                     {
-                        tom.add(s);
+                        searchResults.add(s);
                     }
                 }
             }
 
 
         }
-        return tom;
+        return searchResults;
     }
 
 
