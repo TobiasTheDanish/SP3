@@ -1,4 +1,3 @@
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +15,7 @@ public class Application
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("     Welcome to Dataflix.");
         TextUI.displayMessage("------------------------------");
-        currentUser = StartMenu.logIn(); //Get the logged in user from the startMenu.
+        currentUser = StartMenu.logIn(); //Get the logged-in user from the startMenu.
 
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("Welcome " + currentUser.getUsername() + ".");
@@ -38,7 +37,7 @@ public class Application
 
     private static void displayUserOptions()
     {
-        String input = "";
+        String input;
         do
         {
             clearConsole();
@@ -86,7 +85,7 @@ public class Application
                     break;
                 }
                 case "2":
-                    String selection = "";
+                    String selection;
                     do
                     {
                         selection = TextUI.getInput("Press 'L' for at list of categories, or 'S' to search");
@@ -187,7 +186,7 @@ public class Application
             return;
         }
 
-        String input = "";
+        String input;
 
         clearConsole();
         TextUI.displayMessage("You selected " + selectedMedia.getName() + " from " + selectedMedia.getPublishingYear() + ".");
@@ -220,14 +219,12 @@ public class Application
                     if (!savedMedia)
                     {
                         currentUser.addToSavedMedia(selectedMedia);
-                        savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
-                        break;
                     }
                     else {
                         currentUser.removeFromSavedMedia(selectedMedia);
-                        savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
-                        break;
                     }
+                    savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
+                    break;
 
                 default:
                     TextUI.getInput("That was not a valid action. Press enter to try again.");
@@ -257,10 +254,7 @@ public class Application
                     String name = movieData[0].trim();
                     String publishingYear = movieData[1].trim();
                     List<String> list = Arrays.asList(movieData[2].split(","));
-                    for (int i = 0; i < list.size(); i++)
-                    {
-                        list.set(i, list.get(i).trim());
-                    }
+                    list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
                     IMedia m = new Movie(name, publishingYear, categories, rating);
@@ -275,10 +269,7 @@ public class Application
                     String name = movieData[0].trim();
                     String publishingYear = movieData[1].trim();
                     List<String> list = Arrays.asList(movieData[2].split(","));
-                    for (int i = 0; i < list.size(); i++)
-                    {
-                        list.set(i, list.get(i).trim());
-                    }
+                    list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
                     String[] seasonsAndEpisodes = movieData[4].split(",");
