@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class AMedia implements IMedia {
 
@@ -14,10 +15,24 @@ public abstract class AMedia implements IMedia {
         this.rating = rating;
     }
 
-    public void pause(){
-        //Print out option for pausing the movie/episode
-        //Make an input available (for example "p") for pausing the movie/episode
-        //Once it is paused, print out a message to make the user aware
-        //Make an input available once again (for example "p" again, for easy use), to unpause the movie/episode
+    public void pause() {
+        for (int i = 1; i > 0; i++) {
+            String pause = TextUI.getInput("Press 'P' to pause the media" + "\n" + "Press 'Q' to quit playing");
+            if (pause.equalsIgnoreCase("p")) {
+                String unpause = TextUI.getInput("The media is paused. Press 'P' to unpause." + "\n" + "Press 'Q' to quit playing");
+                if (unpause.equalsIgnoreCase("p")) {
+                    Application.clearConsole();
+                    TextUI.displayMessage("The media is now playing..." + "\n");
+                } else if (unpause.equalsIgnoreCase("q")) {
+                    TextUI.displayMessage("Exiting play");
+                    break;
+                }
+            }
+                else if (pause.equalsIgnoreCase("q")) {
+                TextUI.displayMessage("Exiting play");
+                break;
+            }
+        }
     }
 }
+

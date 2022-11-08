@@ -3,13 +3,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainMenu {
-private User user;
 
-    public MainMenu(User user)
+    public static IMedia Search(String mediaName)
     {
-        this.user = user;
-    }
+        for (IMedia m: Application.movies)
+        {
+             if(m.getName().equalsIgnoreCase(mediaName))
+             {
+                 return m;
+             }
 
+        }
+        for (IMedia s : Application.series)
+        {
+            if(s.getName().equalsIgnoreCase(mediaName))
+            {
+                return s;
+            }
+        }
+        return null;
     public static IMedia Search() throws IOException {
         String searchWord;
         String str;
@@ -41,26 +53,46 @@ private User user;
     }
 
 
-    public ArrayList<IMedia> searchCategory(String category)
+    public static ArrayList<IMedia> searchCategory(String category)
     {
-        return new ArrayList<>();
-        /*search for a movie/series category with a string
-        */
+        ArrayList<IMedia> searchResults = new ArrayList<>();
+        for (IMedia m : Application.movies)
+        {
+            for (String cat : m.getCategories())
+            {
+                if (cat.equalsIgnoreCase(category))
+                {
+                    searchResults.add(m);
 
+                }
+            }
+        }
+
+        for (IMedia s : Application.series)
+        {
+            for (String cat : s.getCategories())
+            {
+                if (cat.equalsIgnoreCase(category))
+                {
+                    searchResults.add(s);
+                }
+            }
+        }
+        return searchResults;
     }
 
 
-    public ArrayList<IMedia> getUsersWatchedMedia(User user)
+    public static ArrayList<IMedia> getUsersWatchedMedia(User user)
     {
-        return new ArrayList<>();
-        //get users watched media from User user "".
+        return user.getWatchedMedia();
+
     }
 
     //Add to a
-    public ArrayList<IMedia> getUsersSavedMedia(User user)
+    public static ArrayList<IMedia> getUsersSavedMedia(User user)
     {
-        return new ArrayList<>();
-        //get users saved media from User user
+        return user.getSavedMedia();
+
     }
 
 
