@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Application
@@ -16,6 +17,12 @@ public class Application
    }
     public static void run() {
        StartMenu.logIn();
+       try {
+           MainMenu.Search();
+       } catch (Exception e){
+           System.out.println(e);
+       }
+
         //currentUser = startMenu.logIn() //Get the logged in user from the startMenu.
 
         /*The following might need a loop, so the user can access multiple media

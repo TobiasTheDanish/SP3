@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MainMenu {
 private User user;
@@ -8,12 +10,34 @@ private User user;
         this.user = user;
     }
 
-    public IMedia Search(String mediaName)
-    {
-        return new Movie("1", "1", new ArrayList<>(), 12);
-        /*
-        search for a movie/series name in the csv files
-         */
+    public static IMedia Search() throws IOException {
+        String searchWord;
+        String str;
+
+        File input = new File("data/moviedata.csv");
+        FileReader reader = null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter a keyword you would like to search for: ");
+        searchWord = scanner.nextLine();
+
+        try {
+            reader = new FileReader(input);
+            BufferedReader br = new BufferedReader(reader);
+
+            while ((str = br.readLine()) != null) {
+                if (str.contains(searchWord)) {
+                    TextUI.displayMessage(str);
+                }
+
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            reader.close();
+        }
+        return null;
     }
 
 
@@ -38,5 +62,7 @@ private User user;
         return new ArrayList<>();
         //get users saved media from User user
     }
+
+
 
 }
