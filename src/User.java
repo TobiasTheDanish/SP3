@@ -63,15 +63,46 @@ public class User
     }
 
     public void addToWatchedMedia (IMedia media){
-        watchedMedia.add(media);
-        TextUI.displayMessage(media.getName() + " has been added to watched media.");
+        if (!listContainsMedia(watchedMedia, media))
+        {
+            watchedMedia.add(media);
+            TextUI.displayMessage(media.getName() + " has been added to watched media.");
+        }
+        else
+        {
+            TextUI.displayMessage(media.getName() + " has already been added to watched media.");
+        }
         //Add the selected movie to: ArrayList<IMedia> getWatchedMedia()
     }
 
     public void addToSavedMedia (IMedia media){
-        savedMedia.add(media);
-        TextUI.displayMessage(media.getName() + " has been added to saved media.");
+        if (!listContainsMedia(savedMedia, media))
+        {
+            savedMedia.add(media);
+            TextUI.displayMessage(media.getName() + " has been added to saved media.");
+        }
+        else
+        {
+            TextUI.displayMessage(media.getName() + " has already been added to saved media.");
+        }
         //Add the selected movie to: ArrayList<IMedia> getSavedMedia()
+    }
+
+    public void removeFromSavedMedia(IMedia media)
+    {
+
+    }
+
+    public boolean listContainsMedia(ArrayList<IMedia> list, IMedia media)
+    {
+        for (IMedia m : list)
+        {
+            if (m.getName().equals(media.getName()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getUsername(){
