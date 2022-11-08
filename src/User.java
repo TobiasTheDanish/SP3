@@ -103,6 +103,11 @@ public class User
 
     public boolean listContainsMedia(ArrayList<IMedia> list, IMedia media)
     {
+        if (media == null)
+        {
+            return false;
+        }
+
         for (IMedia m : list)
         {
             if (m.getName().equals(media.getName()))
