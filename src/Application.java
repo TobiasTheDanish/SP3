@@ -1,3 +1,4 @@
+import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +63,15 @@ public class Application
                     IMedia media;
                     do
                     {
+                        TextUI.displayMessage("Press 'Q' to return.");
                         String mediaName = TextUI.getInput("What is the name of the media you want to watch?");
+
+                        if (mediaName.equalsIgnoreCase("q"))
+                        {
+                            media = null;
+                            break;
+                        }
+
                         media = MainMenu.Search(mediaName);
 
                         if (media == null)
@@ -70,6 +79,7 @@ public class Application
                             TextUI.displayMessage("That name was not found, try again.");
                         }
                     } while (media == null);
+                    if (media == null) break;
 
                     TextUI.displayMessage(media.getName() + " from " + media.getPublishingYear() + " was found.");
                     onMediaSelected(media, currentUser.listContainsMedia(currentUser.getSavedMedia(), media));
