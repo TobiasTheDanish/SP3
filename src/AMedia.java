@@ -16,14 +16,10 @@ public abstract class AMedia implements IMedia {
     }
 
     public void pause() {
-        Scanner input = new Scanner(System.in);
-
         for (int i = 1; i > 0; i++) {
-            TextUI.displayMessage("Press 'P' to pause the media" + "\n" + "Press 'Q' to exit");
-            String pause = input.nextLine();
+            String pause = TextUI.getInput("Press 'P' to pause the media" + "\n" + "Press 'Q' to quit playing");
             if (pause.equalsIgnoreCase("p")) {
-                TextUI.displayMessage("The media is paused. Press 'P' to unpause." + "\n" + "Press 'Q' to exit");
-                String unpause = input.nextLine();
+                String unpause = TextUI.getInput("The media is paused. Press 'P' to unpause." + "\n" + "Press 'Q' to quit playing");
                 if (unpause.equalsIgnoreCase("p")) {
                     Application.clearConsole();
                     TextUI.displayMessage("The media is now playing..." + "\n");
