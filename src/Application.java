@@ -21,7 +21,7 @@ public class Application
         TextUI.displayMessage("Welcome " + currentUser.getUsername() + ".");
         TextUI.getInput("Press enter to start browsing.");
 
-        displayUserOptions(); // uses the MainMenu class to display options.
+        displayUserOptions(); // uses the MainMenu class to display options. This is where the primary program loop takes place
 
         FileIO.writeUserDataToFile(currentUser);
 
@@ -72,11 +72,26 @@ public class Application
                     } while (media == null);
 
                     TextUI.displayMessage(media.getName() + " from " + media.getPublishingYear() + " was found.");
-                    onMediaSelected(media, false);
+                    onMediaSelected(media, currentUser.listContainsMedia(currentUser.getSavedMedia(), media));
                     break;
                 }
                 case "2":
-                    String categoryName = TextUI.getInput("Enter the category you would like to filter by:");
+                    String selection = "";
+                    do
+                    {
+                        selection = TextUI.getInput("Press 'L' for at list of categories, or 'S' to search");
+                        if (selection.equalsIgnoreCase("l"))
+                        {
+                            displayListOfCategories();
+                        }
+                        else if (selection.equalsIgnoreCase("S"))
+                        {
+                            break;
+                        }
+                    } while(true);
+
+
+                    String categoryName = TextUI.getInput("Enter the name of the category you would like to filter by:");
                     ArrayList<IMedia> categoryList = MainMenu.searchCategory(categoryName);
                     //Display category list to user
                     TextUI.getInput("There is " + categoryList.size() + " media in " + categoryName + ".\nPress enter to view the list.");
@@ -86,7 +101,8 @@ public class Application
                         TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
                     }
 
-                    onMediaSelected(selectMedia(categoryList), false);
+                    IMedia selected = selectMedia(categoryList);
+                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
                     break;
 
                 case "3":
@@ -97,7 +113,8 @@ public class Application
                         IMedia media = savedMedia.get(i);
                         TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
                     }
-                    onMediaSelected(selectMedia(savedMedia), true);
+                    selected = selectMedia(savedMedia);
+                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
                     break;
 
                 case "4":
@@ -108,7 +125,8 @@ public class Application
                         IMedia media = watchedMedia.get(i);
                         TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
                     }
-                    onMediaSelected(selectMedia(watchedMedia), false);
+                    selected = selectMedia(watchedMedia);
+                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
                     break;
 
                 default:
@@ -159,7 +177,6 @@ public class Application
             return;
         }
 
-
         String input = "";
 
         clearConsole();
@@ -170,7 +187,10 @@ public class Application
             TextUI.displayMessage("1)   Watch the media.");
             if (!savedMedia)
             {
-                TextUI.displayMessage("2)   Save to your saved medias list.");
+                TextUI.displayMessage("2)   Save to your saved media list.");
+            }
+            else {
+                TextUI.displayMessage("2)   Remove from your saved media list.");
             }
             input = TextUI.getInput("Enter your selection, or press Q to return to the main menu:");
 
@@ -183,8 +203,6 @@ public class Application
                 case "1":
                     clearConsole();
                     watch(selectedMedia);
-                    TextUI.getInput(selectedMedia.getName() + " is done playing.\nPress enter to return to the main menu.");
-                    input = "q";
                     clearConsole();
                     break;
 
@@ -192,7 +210,12 @@ public class Application
                     if (!savedMedia)
                     {
                         currentUser.addToSavedMedia(selectedMedia);
-                        savedMedia = true;
+                        savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
+                        break;
+                    }
+                    else {
+                        currentUser.removeFromSavedMedia(selectedMedia);
+                        savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
                         break;
                     }
 
@@ -268,6 +291,15 @@ public class Application
        return medias;
     }
 
+    private static void displayListOfCategories()
+    {
+        String[] categories = "Talk-show, Documentary, Crime, Drama, Action, Adventure, Drama, Comedy, Fantasy, Animation, Horror, Sci-fi, War, Thriller, Mystery, Biography, History, Family, Western, Romance, Sport".split(",");
+
+        for (int i = 0; i < categories.length; i++)
+        {
+            TextUI.displayMessage((i+1) + ")    " + categories[i]);
+        }
+    }
     public static void clearConsole()
     {
         for (int i = 0; i < 100; i++)
