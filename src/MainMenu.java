@@ -4,24 +4,22 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    public static IMedia Search(String mediaName)
-    {
-        for (IMedia m: Application.movies)
-        {
-             if(m.getName().equalsIgnoreCase(mediaName))
-             {
-                 return m;
-             }
+
+    public static IMedia Search(String mediaName) {
+        for (IMedia m : Application.movies) {
+            if (m.getName().equalsIgnoreCase(mediaName.trim())) {
+                return m;
+            }
 
         }
-        for (IMedia s : Application.series)
-        {
-            if(s.getName().equalsIgnoreCase(mediaName))
-            {
+        for (IMedia s : Application.series) {
+            if (s.getName().equalsIgnoreCase(mediaName.trim())) {
                 return s;
             }
         }
         return null;
+    }
+   /*
     public static IMedia Search() throws IOException {
         String searchWord;
         String str;
@@ -52,6 +50,7 @@ public class MainMenu {
         return null;
     }
 
+      */
 
     public static ArrayList<IMedia> searchCategory(String category)
     {

@@ -8,12 +8,6 @@ public class Application
     private static User currentUser;
     public static ArrayList <IMedia> movies;
     public static ArrayList <IMedia> series;
-
-    private User currentUser;
-    private StartMenu startMenu;
-    private MainMenu mainMenu;
-    public static ArrayList <IMedia> Movies;
-    public static ArrayList <IMedia> Series;
    public Application() {
        //Init startMenu to new StartMenu object
 
