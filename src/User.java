@@ -90,7 +90,15 @@ public class User
 
     public void removeFromSavedMedia(IMedia media)
     {
-
+        for (int i = 0; i < savedMedia.size(); i++) {
+            IMedia m = savedMedia.get(i);
+            if (m.getName().equals(media.getName()))
+            {
+               savedMedia.remove(i);
+               TextUI.displayMessage(media.getName()+" has been removed from saved media.");
+               return;
+            }
+        }
     }
 
     public boolean listContainsMedia(ArrayList<IMedia> list, IMedia media)
