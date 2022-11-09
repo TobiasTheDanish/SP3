@@ -1,6 +1,5 @@
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class MainMenu {
     //Making a function where we are able to search by name in our arraylist
@@ -27,6 +26,8 @@ public class MainMenu {
 
     public static ArrayList<IMedia> searchCategory(String category)
     {
+        //Using foreach loop to search by category in our arraylist
+        //First loop through movies by calling the application class
         ArrayList<IMedia> searchResults = new ArrayList<>();
         for (IMedia m : Application.movies)
         {
@@ -39,7 +40,8 @@ public class MainMenu {
                 }
             }
         }
-
+        //Using foreach loop to search by category in our arraylist
+        //Then loop through series by calling the application class
         for (IMedia s : Application.series)
         {
             for (String cat : s.getCategories())
@@ -50,6 +52,7 @@ public class MainMenu {
                 }
             }
         }
+        //Return a list of movies in the given category
         return searchResults;
     }
 
