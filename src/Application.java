@@ -21,7 +21,7 @@ public class Application
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("     Welcome to Dataflix.");
         TextUI.displayMessage("------------------------------");
-        currentUser = StartMenu.logIn(); //Get the logged in user from the startMenu.
+        currentUser = StartMenu.logIn(); //Get the logged-in user from the startMenu.
 
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("Welcome " + currentUser.getUsername() + ".");
@@ -43,7 +43,7 @@ public class Application
 
     private static void displayUserOptions()
     {
-        String input = "";
+        String input;
         do
         {
             clearConsole();
@@ -68,7 +68,15 @@ public class Application
                     IMedia media;
                     do
                     {
+                        TextUI.displayMessage("Press 'Q' to return.");
                         String mediaName = TextUI.getInput("What is the name of the media you want to watch?");
+
+                        if (mediaName.equalsIgnoreCase("q"))
+                        {
+                            media = null;
+                            break;
+                        }
+
                         media = MainMenu.Search(mediaName);
 
                         if (media == null)
@@ -76,13 +84,14 @@ public class Application
                             TextUI.displayMessage("That name was not found, try again.");
                         }
                     } while (media == null);
+                    if (media == null) break;
 
                     TextUI.displayMessage(media.getName() + " from " + media.getPublishingYear() + " was found.");
                     onMediaSelected(media, currentUser.listContainsMedia(currentUser.getSavedMedia(), media));
                     break;
                 }
                 case "2":
-                    String selection = "";
+                    String selection;
                     do
                     {
                         selection = TextUI.getInput("Press 'L' for at list of categories, or 'S' to search");
@@ -183,7 +192,7 @@ public class Application
             return;
         }
 
-        String input = "";
+        String input;
 
         clearConsole();
         TextUI.displayMessage("You selected " + selectedMedia.getName() + " from " + selectedMedia.getPublishingYear() + ".");
@@ -216,14 +225,12 @@ public class Application
                     if (!savedMedia)
                     {
                         currentUser.addToSavedMedia(selectedMedia);
-                        savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
-                        break;
                     }
                     else {
                         currentUser.removeFromSavedMedia(selectedMedia);
-                        savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
-                        break;
                     }
+                    savedMedia = currentUser.listContainsMedia(currentUser.getSavedMedia(), selectedMedia);
+                    break;
 
                 default:
                     TextUI.getInput("That was not a valid action. Press 'ENTER' to try again.");
@@ -253,10 +260,7 @@ public class Application
                     String name = movieData[0].trim();
                     String publishingYear = movieData[1].trim();
                     List<String> list = Arrays.asList(movieData[2].split(","));
-                    for (int i = 0; i < list.size(); i++)
-                    {
-                        list.set(i, list.get(i).trim());
-                    }
+                    list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
                     IMedia m = new Movie(name, publishingYear, categories, rating);
@@ -271,10 +275,7 @@ public class Application
                     String name = movieData[0].trim();
                     String publishingYear = movieData[1].trim();
                     List<String> list = Arrays.asList(movieData[2].split(","));
-                    for (int i = 0; i < list.size(); i++)
-                    {
-                        list.set(i, list.get(i).trim());
-                    }
+                    list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
                     String[] seasonsAndEpisodes = movieData[4].split(",");
