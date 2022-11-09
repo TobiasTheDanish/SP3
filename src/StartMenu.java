@@ -4,17 +4,25 @@ public class StartMenu {
 
     public static User logIn() {
 
+
         String currentPassword;
+        //Assigning the users input to currentUsername.
         String currentUsername = TextUI.getInput("Please enter a username: ");
+        /*
+           Calling the boolean method existingUsername(), that checks if the users input
+           match an already existing username.
+         */
         if(existingUsername(currentUsername)){
+            //If the username already exists, it will ask for your matching password.
             TextUI.displayMessage("Looks like the username already exists.");
             currentPassword = TextUI.getInput("Please enter your password: ");
            if(correctPassword(currentPassword)){
+               //If the given password match the one we have stored in userdata.csv, you will be logged in.
                System.out.println("You've successfully logged in to Dataflix");
                return new User(currentUsername, currentPassword);
 
            } else {
-
+               //If the password doesn't match, it will let you know, and ask for your password again.
                while(!correctPassword(currentPassword)){
                    TextUI.displayMessage("-- Incorrect Password --");
                    currentPassword = TextUI.getInput("Please enter your password: ");
@@ -26,22 +34,33 @@ public class StartMenu {
            }
 
         }
+        //If the users input for username doesn't match any usernames from the userdata.csv, it will give you following options.
         else if(!existingUsername(currentUsername)){
             TextUI.displayMessage("Looks like we don't have any users with that username.");
             TextUI.displayMessage("What would you like to do?");
                 String input;
+                /*
+                Giving the options to create a new user, or try to log in with another username.
+                The following do-while-loop will only accept a 'T' or 'N' as response.
+                 */
             do {
                     input = TextUI.getInput("Create new user(N) or Try again(T)");
-                if (input.equalsIgnoreCase("T")) {
 
+                    //If the user choose to try again with another username, it will call the logIn() method again and start over.
+                if (input.equalsIgnoreCase("T")) {
                     return StartMenu.logIn();
 
+                    //If the user choose to make a new user, it will simply ask for a password.
                 } else if (input.equalsIgnoreCase("N")) {
 
                     TextUI.displayMessage("Alright, let's create a new user.");
                     currentPassword = TextUI.getInput("Please enter a password: ");
                     System.out.println("You've successfully created an account and is being logged in to Dataflix");
                     User user = new User(currentUsername, currentPassword);
+                    /*
+                    //Once the user is created, it will add the users new username and password to the userdata.csv file
+                      for it to be stored and accessible when logging in next time.
+                     */
                     FileIO.addToFile(user);
                     return user;
                 }
@@ -52,6 +71,12 @@ public class StartMenu {
     }
 
 
+    /*
+    The existingUsername() method, takes a String as parameter, and will then add the whole userdata.csv file
+    to a new arraylist 'data'. Then the for-loop will compare all the usernames in the file with
+    the username the method got as input.
+    The .split method returns an array, and we are fetching index[0] as that is where the usernames are stored in the file.
+     */
     private static boolean existingUsername(String username) {
         ArrayList<String> data = FileIO.readFile("data/userdata.csv");
         for(int i = 0; i < data.size(); i++) {
@@ -61,6 +86,11 @@ public class StartMenu {
         }
         return false;
     }
+
+    /*
+    The correctPassword method does exactly the same as the existingUsername method,
+    just with index[1] as that is where the passwords are stored.
+     */
     private static boolean correctPassword(String password) {
 
         ArrayList<String> data = FileIO.readFile("data/userdata.csv");

@@ -54,7 +54,7 @@ public class Application
                                           "2)   Search for media by category.\n" +
                                           "3)   View your saved medias.\n" +
                                           "4)   View your watched medias.\n");
-            input = TextUI.getInput("Enter your selection, or press Q to log out:");
+            input = TextUI.getInput("Enter your selection, or press 'Q' to log out:");
 
             //Add switch case for above input
             switch (input)
@@ -90,7 +90,7 @@ public class Application
                         {
                             displayListOfCategories();
                         }
-                        else if (selection.equalsIgnoreCase("S"))
+                        else if (selection.equalsIgnoreCase("s"))
                         {
                             break;
                         }
@@ -100,7 +100,7 @@ public class Application
                     String categoryName = TextUI.getInput("Enter the name of the category you would like to filter by:");
                     ArrayList<IMedia> categoryList = MainMenu.searchCategory(categoryName);
                     //Display category list to user
-                    TextUI.getInput("There is " + categoryList.size() + " media in " + categoryName + ".\nPress enter to view the list.");
+                    TextUI.getInput("There is " + categoryList.size() + " media in " + categoryName + ".\nPress 'ENTER' to view the list.");
                     for (int i = 0; i < categoryList.size(); i++)
                     {
                         IMedia media = categoryList.get(i);
@@ -113,7 +113,7 @@ public class Application
 
                 case "3":
                     ArrayList<IMedia> savedMedia = MainMenu.getUsersSavedMedia(currentUser);
-                    TextUI.getInput("There is " + savedMedia.size() + " media in your saved media list." + "\nPress enter to view the list.");
+                    TextUI.getInput("There is " + savedMedia.size() + " media in your saved media list." + "\nPress 'ENTER' to view the list.");
                     for (int i = 0; i < savedMedia.size(); i++)
                     {
                         IMedia media = savedMedia.get(i);
@@ -125,7 +125,7 @@ public class Application
 
                 case "4":
                     ArrayList<IMedia> watchedMedia = MainMenu.getUsersWatchedMedia(currentUser);
-                    TextUI.getInput("There is " + watchedMedia.size() + " media in your watched media list." + "\nPress enter to view the list.");
+                    TextUI.getInput("There is " + watchedMedia.size() + " media in your watched media list." + "\nPress 'ENTER' to view the list.");
                     for (int i = 0; i < watchedMedia.size(); i++)
                     {
                         IMedia media = watchedMedia.get(i);
@@ -136,7 +136,7 @@ public class Application
                     break;
 
                 default:
-                    TextUI.getInput("That was not a valid action. Press enter to try again.");
+                    TextUI.getInput("That was not a valid action. Press 'ENTER' to try again.");
                     clearConsole();
                     break;
             }
@@ -198,7 +198,7 @@ public class Application
             else {
                 TextUI.displayMessage("2)   Remove from your saved media list.");
             }
-            input = TextUI.getInput("Enter your selection, or press Q to return to the main menu:");
+            input = TextUI.getInput("Enter your selection, or press 'Q' to return to the main menu:");
 
             switch (input)
             {
@@ -226,7 +226,7 @@ public class Application
                     }
 
                 default:
-                    TextUI.getInput("That was not a valid action. Press enter to try again.");
+                    TextUI.getInput("That was not a valid action. Press 'ENTER' to try again.");
                     clearConsole();
                     break;
             }
