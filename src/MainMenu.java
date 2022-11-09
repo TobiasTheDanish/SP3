@@ -1,21 +1,22 @@
 import java.util.ArrayList;
 
-public class MainMenu {
 
-    public static IMedia search(String mediaName)
-    {
-        for (IMedia m: Application.movies)
-        {
-             if(m.getName().equalsIgnoreCase(mediaName))
-             {
+public class MainMenu {
+    //Making a function where we are able to search by name in our arraylist
+    //Does not make any difference whether it's a movie or a series
+    public static IMedia search(String mediaName) {
+        //Using a foreach loop to be able to search in our arraylist
+        // will return the name of the movie if it's in the list
+        for (IMedia m: Application.movies) {
+             if(m.getName().equalsIgnoreCase(mediaName)) {
                  return m;
              }
 
         }
-        for (IMedia s : Application.series)
-        {
-            if(s.getName().equalsIgnoreCase(mediaName))
-            {
+        //Using a foreach loop to be able to search in our arraylist
+        // will return the name of the movie if it's in the list
+        for (IMedia s : Application.series) {
+            if(s.getName().equalsIgnoreCase(mediaName)) {
                 return s;
             }
         }
@@ -48,6 +49,8 @@ public class MainMenu {
 
     public static ArrayList<IMedia> searchCategory(String category)
     {
+        //Using foreach loop to search by category in our arraylist
+        //First loop through movies by calling the application class
         ArrayList<IMedia> searchResults = new ArrayList<>();
         for (IMedia m : Application.movies)
         {
@@ -60,7 +63,8 @@ public class MainMenu {
                 }
             }
         }
-
+        //Using foreach loop to search by category in our arraylist
+        //Then loop through series by calling the application class
         for (IMedia s : Application.series)
         {
             for (String cat : s.getCategories())
@@ -71,6 +75,7 @@ public class MainMenu {
                 }
             }
         }
+        //Return a list of movies in the given category
         return searchResults;
     }
 

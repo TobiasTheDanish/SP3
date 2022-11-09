@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 
-public class User
-{
+public class User{
 
     private String username;
     private String password;
     private ArrayList<IMedia> watchedMedia;
     private ArrayList<IMedia> savedMedia;
 
-    public User(String username, String password) {
+    public User(String username, String password){
         this.username = username;
         this.password = password;
         watchedMedia = initWatchedMedia(username);
@@ -26,8 +25,7 @@ public class User
 
         String[] watchedMedia = watchedMediaStr.split(":");
 
-        for (String mediaName : watchedMedia)
-        {
+        for (String mediaName : watchedMedia) {
             returnList.add(MainMenu.search(mediaName));
         }
 
@@ -46,8 +44,7 @@ public class User
 
         String[] savedMedia = savedMediaStr.split(":");
 
-        for (String mediaName : savedMedia)
-        {
+        for (String mediaName : savedMedia) {
             returnList.add(MainMenu.search(mediaName));
         }
 

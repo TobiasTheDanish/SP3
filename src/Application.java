@@ -32,6 +32,7 @@ public class Application
 
         //Writes the currently logged-in users data to the userdata file, before "logging out".
         FileIO.writeUserDataToFile(currentUser);
+
         TextUI.displayMessage("---------------------------------------------------------");
         TextUI.displayMessage("     Thank you for using Dataflix. Logging out...");
         TextUI.displayMessage("---------------------------------------------------------");
@@ -60,7 +61,7 @@ public class Application
                                           "2)   Search for media by category.\n" +
                                           "3)   View your saved medias.\n" +
                                           "4)   View your watched medias.\n");
-            input = TextUI.getInput("Enter your selection, or press Q to log out:");
+            input = TextUI.getInput("Enter your selection, or press 'Q' to log out:");
 
             //Switch statement to perform different logic based on input
             switch (input) {
@@ -289,7 +290,7 @@ public class Application
                 TextUI.displayMessage("2)   Remove from your saved media list.");
             }
             //Prompt the user to make a selection or exit to the main menu
-            input = TextUI.getInput("Enter your selection, or press Q to return to the main menu:");
+            input = TextUI.getInput("Enter your selection, or press 'Q' to return to the main menu:");
 
             switch (input)
             {
@@ -320,7 +321,7 @@ public class Application
 
                 default:
                     //Invalid actions is handled here.
-                    TextUI.getInput("That was not a valid action. Press enter to try again.");
+                    TextUI.getInput("That was not a valid action. Press 'ENTER' to try again.");
                     clearConsole();
                     break;
             }
