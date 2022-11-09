@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class MainMenu {
 
-    public static IMedia Search(String mediaName)
+    public static IMedia search(String mediaName)
     {
         for (IMedia m: Application.movies)
         {
@@ -20,6 +20,29 @@ public class MainMenu {
             }
         }
         return null;
+    }
+
+    public static ArrayList<IMedia> searchName(String mediaName)
+    {
+        ArrayList<IMedia> resultList = new ArrayList<>();
+
+        for (IMedia m: Application.movies)
+        {
+            if(m.getName().toLowerCase().contains(mediaName.toLowerCase()))
+            {
+                resultList.add(m);
+            }
+
+        }
+        for (IMedia s : Application.series)
+        {
+            if(s.getName().toLowerCase().contains(mediaName.toLowerCase()))
+            {
+                resultList.add(s);
+            }
+        }
+
+        return resultList;
     }
 
 
