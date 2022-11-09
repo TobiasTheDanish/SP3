@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/userdata.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/userdata.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +27,7 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/master" />
+    <option name="BRANCH" value="Tobias" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -84,7 +86,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="81dd702a-33e2-431c-9428-0a4753620247" name="Changes" comment="Update workspace.xml" />
+      <changelist id="1a65cc85-b38d-429f-bfd2-18e221719b8d" name="Changes" comment="Added the ability to return from the search selection without searching" />
       <created>1667900399572</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

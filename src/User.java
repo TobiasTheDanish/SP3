@@ -28,7 +28,7 @@ public class User
 
         for (String mediaName : watchedMedia)
         {
-            returnList.add(MainMenu.Search(mediaName));
+            returnList.add(MainMenu.search(mediaName));
         }
 
         return returnList;
@@ -48,7 +48,7 @@ public class User
 
         for (String mediaName : savedMedia)
         {
-            returnList.add(MainMenu.Search(mediaName));
+            returnList.add(MainMenu.search(mediaName));
         }
 
         return returnList;
