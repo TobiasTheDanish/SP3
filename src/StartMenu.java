@@ -14,17 +14,13 @@ public class StartMenu {
         if(existingUsername(currentUsername)) {
             String input;
             //If the username already exists, it will ask for your matching password.
-            TextUI.displayMessage("Looks like the username already exists.");
             currentPassword = TextUI.getInput("Please enter your password: ");
            if(correctPassword(currentPassword)) {
-
                //If the given password match the one we have stored in userdata.csv, you will be logged in.
                System.out.println("You've successfully logged in to Dataflix");
                return new User(currentUsername, currentPassword);
            } else {
                while (!correctPassword(currentPassword)) {
-                   //TextUI.displayMessage("-- Incorrect Password --");
-
                    TextUI.displayMessage("-- Incorrect Password --");
                    do {
                        input = TextUI.getInput("Try again(T) or go back(B)");
@@ -40,7 +36,6 @@ public class StartMenu {
                                return new User(currentUsername, currentPassword);
                            }
                        }
-
                    } while (!input.equalsIgnoreCase("T") && !input.equalsIgnoreCase("B"));
                }
            }
