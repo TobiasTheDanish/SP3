@@ -12,30 +12,27 @@ public class StartMenu {
            Calling the boolean method existingUsername(), that checks if the users input
            match an already existing username.
          */
-        if(existingUsername(currentUsername)){
+        if(existingUsername(currentUsername)) {
             //If the username already exists, it will ask for your matching password.
             TextUI.displayMessage("Looks like the username already exists.");
             currentPassword = TextUI.getInput("Please enter your password: ");
-           if(correctPassword(currentPassword)){
+           if(correctPassword(currentPassword)) {
                //If the given password match the one we have stored in userdata.csv, you will be logged in.
                System.out.println("You've successfully logged in to Dataflix");
                return new User(currentUsername, currentPassword);
 
            } else {
                //If the password doesn't match, it will let you know, and ask for your password again.
-               while(!correctPassword(currentPassword)){
+               while(!correctPassword(currentPassword)) {
                    TextUI.displayMessage("-- Incorrect Password --");
                    currentPassword = TextUI.getInput("Please enter your password: ");
-
                }
                System.out.println("You've successfully logged in to Dataflix");
                 return new User(currentUsername, currentPassword);
-
            }
-
         }
         //If the users input for username doesn't match any usernames from the userdata.csv, it will give you following options.
-        else if(!existingUsername(currentUsername)){
+        else if(!existingUsername(currentUsername)) {
             TextUI.displayMessage("Looks like we don't have any users with that username.");
             TextUI.displayMessage("What would you like to do?");
                 String input;
@@ -45,14 +42,12 @@ public class StartMenu {
                  */
             do {
                     input = TextUI.getInput("Create new user(N) or Try again(T)");
-
                     //If the user choose to try again with another username, it will call the logIn() method again and start over.
                 if (input.equalsIgnoreCase("T")) {
                     return StartMenu.logIn();
 
                     //If the user choose to make a new user, it will simply ask for a password.
                 } else if (input.equalsIgnoreCase("N")) {
-
                     TextUI.displayMessage("Alright, let's create a new user.");
                     currentPassword = TextUI.getInput("Please enter a password: ");
                     System.out.println("You've successfully created an account and is being logged in to Dataflix");
@@ -69,8 +64,6 @@ public class StartMenu {
         }
         return new User("-1", "-1");
     }
-
-
     /*
     The existingUsername() method, takes a String as parameter, and will then add the whole userdata.csv file
     to a new arraylist 'data'. Then the for-loop will compare all the usernames in the file with
@@ -86,7 +79,6 @@ public class StartMenu {
         }
         return false;
     }
-
     /*
     The correctPassword method does exactly the same as the existingUsername method,
     just with index[1] as that is where the passwords are stored.

@@ -11,7 +11,6 @@ public class MainMenu {
              if(m.getName().equalsIgnoreCase(mediaName)) {
                  return m;
              }
-
         }
         //Using a foreach loop to be able to search in our arraylist
         // will return the name of the movie if it's in the list
@@ -23,54 +22,39 @@ public class MainMenu {
         return null;
     }
 
-    public static ArrayList<IMedia> searchName(String mediaName)
-    {
+    public static ArrayList<IMedia> searchName(String mediaName) {
         ArrayList<IMedia> resultList = new ArrayList<>();
 
-        for (IMedia m: Application.movies)
-        {
-            if(m.getName().toLowerCase().contains(mediaName.toLowerCase()))
-            {
+        for (IMedia m: Application.movies) {
+            if(m.getName().toLowerCase().contains(mediaName.toLowerCase())) {
                 resultList.add(m);
             }
-
         }
-        for (IMedia s : Application.series)
-        {
-            if(s.getName().toLowerCase().contains(mediaName.toLowerCase()))
-            {
+        for (IMedia s : Application.series) {
+            if(s.getName().toLowerCase().contains(mediaName.toLowerCase())) {
                 resultList.add(s);
             }
         }
-
         return resultList;
     }
 
 
-    public static ArrayList<IMedia> searchCategory(String category)
-    {
+    public static ArrayList<IMedia> searchCategory(String category) {
         //Using foreach loop to search by category in our arraylist
         //First loop through movies by calling the application class
         ArrayList<IMedia> searchResults = new ArrayList<>();
-        for (IMedia m : Application.movies)
-        {
-            for (String cat : m.getCategories())
-            {
-                if (cat.equalsIgnoreCase(category))
-                {
+        for (IMedia m : Application.movies) {
+            for (String cat : m.getCategories()) {
+                if (cat.equalsIgnoreCase(category)) {
                     searchResults.add(m);
-
                 }
             }
         }
         //Using foreach loop to search by category in our arraylist
         //Then loop through series by calling the application class
-        for (IMedia s : Application.series)
-        {
-            for (String cat : s.getCategories())
-            {
-                if (cat.equalsIgnoreCase(category))
-                {
+        for (IMedia s : Application.series) {
+            for (String cat : s.getCategories()) {
+                if (cat.equalsIgnoreCase(category)) {
                     searchResults.add(s);
                 }
             }
@@ -80,17 +64,12 @@ public class MainMenu {
     }
 
 
-    public static ArrayList<IMedia> getUsersWatchedMedia(User user)
-    {
+    public static ArrayList<IMedia> getUsersWatchedMedia(User user) {
         return user.getWatchedMedia();
-
     }
 
     //Add to a
-    public static ArrayList<IMedia> getUsersSavedMedia(User user)
-    {
+    public static ArrayList<IMedia> getUsersSavedMedia(User user) {
         return user.getSavedMedia();
-
     }
-
 }
