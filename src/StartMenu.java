@@ -3,8 +3,6 @@ import java.util.ArrayList;
 public class StartMenu {
 
     public static User logIn() {
-
-
         String currentPassword;
         //Assigning the users input to currentUsername.
         String currentUsername = TextUI.getInput("Please enter a username: ");
@@ -20,7 +18,6 @@ public class StartMenu {
                //If the given password match the one we have stored in userdata.csv, you will be logged in.
                System.out.println("You've successfully logged in to Dataflix");
                return new User(currentUsername, currentPassword);
-
            } else {
                //If the password doesn't match, it will let you know, and ask for your password again.
                while(!correctPassword(currentPassword)) {
@@ -84,8 +81,8 @@ public class StartMenu {
     just with index[1] as that is where the passwords are stored.
      */
     private static boolean correctPassword(String password) {
-
         ArrayList<String> data = FileIO.readFile("data/userdata.csv");
+
         for(int i = 0; i < data.size(); i++) {
             if (data.get(i).split(",")[1].equals(password)) {
                 return true;
