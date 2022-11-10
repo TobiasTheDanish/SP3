@@ -68,7 +68,6 @@ public class MainMenu {
         return user.getWatchedMedia();
     }
 
-    //Add to a
     public static ArrayList<IMedia> getUsersSavedMedia(User user) {
         return user.getSavedMedia();
     }

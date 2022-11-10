@@ -14,7 +14,6 @@ public class FileIO {
             while (input.hasNextLine()) {
                 data.add(input.nextLine());
             }
-
         } catch (FileNotFoundException e) {
             data = null;
             System.out.println("Something went wrong");
@@ -53,7 +52,6 @@ public class FileIO {
                 writer.write(s + "\n");
             }
             writer.write(createUserDataString(user));
-
             writer.close();
         } catch (IOException e) {
             System.out.println(e);
@@ -92,7 +90,6 @@ public class FileIO {
                 IMedia m = savedMedia.get(j);
                 userData += m.getName() + ":";
             }
-
             IMedia m = savedMedia.get(savedMedia.size()-1);
             userData += m.getName();
         } else {
@@ -100,4 +97,4 @@ public class FileIO {
         }
         return userData;
     }
-}//class end
+}
