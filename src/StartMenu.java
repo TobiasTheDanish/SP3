@@ -12,7 +12,6 @@ public class StartMenu {
          */
         if(existingUsername(currentUsername)) {
             //If the username already exists, it will ask for your matching password.
-            TextUI.displayMessage("Looks like the username already exists.");
             currentPassword = TextUI.getInput("Please enter your password: ");
            if(correctPassword(currentPassword)) {
                //If the given password match the one we have stored in userdata.csv, you will be logged in.
