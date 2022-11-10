@@ -37,7 +37,7 @@ public class Application {
         //Add the passed in IMedia type to the users watched list
         currentUser.addToWatchedMedia(media);
         //Prompt the user for input, to make sure they see the message.
-        TextUI.getInput("Press enter to return to main menu");
+        TextUI.getInput("Press enter to continue.");
     }
 
     private static void displayUserOptions() {
@@ -49,10 +49,9 @@ public class Application {
             //Display options to the user, and prompt them to make a selection. Then save the selection in the input variable
             TextUI.displayMessage("---------------------------------------------------------");
             TextUI.displayMessage("What action do you wish to make?");
-            TextUI.displayMessage("1)   Search for media by name.\n" +
-                                          "2)   Search for media by category.\n" +
-                                          "3)   View your saved medias.\n" +
-                                          "4)   View your watched medias.\n");
+            TextUI.displayMessage("1)   Search for media\n" +
+                                       "2)   View your saved medias.\n" +
+                                       "3)   View your watched medias.\n");
             input = TextUI.getInput("Enter your selection, or press 'Q' to log out:");
             //Switch statement to perform different logic based on input
             switch (input) {
@@ -62,83 +61,10 @@ public class Application {
                     break;
                 //This is for when the user wants to search for a media
                 case "1": {
-                    //Create an Arraylist that will be populated in the do-while loop.
-                    ArrayList<IMedia> media;
-                    do {
-                        //Prompt the user with their actions
-                        TextUI.displayMessage("Press 'Q' to return.");
-                        String mediaName = TextUI.getInput("What is the name of the media you want to watch?");
-
-                        //Exit this loop if the user has entered "q" or "Q".
-                        if (mediaName.equalsIgnoreCase("q")) {
-                            media = null; //Setting media to null, to be able to break out of the switch statement.
-                            break;
-                        }
-                        //Receives a list from MainMenus searchName function, which we store in the Arraylist created above.
-                        media = MainMenu.searchName(mediaName);
-                        //If there is no elements in the list, we prompt the user to try again.
-                        if (media.size() == 0) {
-                            TextUI.displayMessage("That name was not found, try again.");
-                        }
-                    } while (media.size() == 0);
-                    // if media is null, then the user wants to exit to the main menu, therefore we break.
-                    if (media == null) break;
-                    //Prompt the user to let them know how many hits their search returned.
-                    TextUI.displayMessage("Your search returned " + media.size() + " media.");
-                    TextUI.getInput("Press enter to view the list.");
-                    /* Displays the list 1 by 1 with their given index in front.
-                     * Ex.: "1)  Game Of Thrones from ..."
-                     */
-                    for (int i = 0; i < media.size(); i++) {
-                        IMedia m = media.get(i);
-                        TextUI.displayMessage((i+1) + ")    " + m.getName() + " from " + m.getPublishingYear() + " has a rating of " + m.getRating() + "/10.");
-                    }
-                    //Gets an IMedia from the selectMedia function.
-                    IMedia selected = selectMedia(media);
-                    /*
-                    * Call onMediaSelected function with the IMedia from selectMedia,
-                    * and a call to the currentUsers listContainsMedia, that returns a boolean based on
-                    * if the selected media is in the list.
-                    */
-                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
+                    displaySearchOptions();
                     break;
                 }
                 case "2":
-                    String selection;
-                    do {
-                        selection = TextUI.getInput("Press 'L' for at list of categories, or 'S' to search");
-                        //Displays a list of categories if the user presses "l" or "L"
-                        if (selection.equalsIgnoreCase("l")) {
-                            displayListOfCategories();
-                        }
-                        //Continues to the search prompt if the user presses "s" or "S"
-                        else if (selection.equalsIgnoreCase("S")) {
-                            break;
-                        }
-                    } while(true);
-                    //Prompt the user to enter the category they want to search by.
-                    String categoryName = TextUI.getInput("Enter the name of the category you would like to filter by:");
-                    //Receives a list from MainMenus searchName function, which we store in the Arraylist created above.
-                    ArrayList<IMedia> categoryList = MainMenu.searchCategory(categoryName);
-                    //Prompt the user to let them know how many hits their search returned.
-                    TextUI.getInput("There is " + categoryList.size() + " media in " + categoryName + ".\nPress enter to view the list.");
-                    /* Displays the list 1 by 1 with their given index in front.
-                     * Ex.: "1)  Game Of Thrones from ..."
-                     */
-                    for (int i = 0; i < categoryList.size(); i++) {
-                        IMedia media = categoryList.get(i);
-                        TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
-                    }
-                    //Gets an IMedia from the selectMedia function.
-                    IMedia selected = selectMedia(categoryList);
-                    /* Call onMediaSelected function with the IMedia from selectMedia,
-                     * and a call to the currentUsers listContainsMedia, that returns a boolean based on
-                     * if the selected media is in the list.
-                     */
-                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
-                    break;
-
-                case "3":
                     //Receives a list from MainMenus getUsersSavedMedia function, which we store in a new ArrayList.
                     ArrayList<IMedia> savedMedia = MainMenu.getUsersSavedMedia(currentUser);
                     //Prompt the user to let them know how many hits their search returned.
@@ -151,7 +77,7 @@ public class Application {
                         TextUI.displayMessage((i+1) + ")    " + media.getName() + " from " + media.getPublishingYear() + " has a rating of " + media.getRating() + "/10.");
                     }
                     //Gets an IMedia from the selectMedia function.
-                    selected = selectMedia(savedMedia);
+                    IMedia selected = selectMedia(savedMedia);
                     /* Call onMediaSelected function with the IMedia from selectMedia,
                      * and a call to the currentUsers listContainsMedia, that returns a boolean based on
                      * if the selected media is in the list.
@@ -159,7 +85,7 @@ public class Application {
                     onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
                     break;
 
-                case "4":
+                case "3":
                     //Receives a list from MainMenus getUsersWatchedMedia function, which we store in a new ArrayList.
                     ArrayList<IMedia> watchedMedia = MainMenu.getUsersWatchedMedia(currentUser);
                     //Prompt the user to let them know how many hits their search returned.
@@ -191,6 +117,186 @@ public class Application {
         while (!input.equalsIgnoreCase("q"));
     }
 
+    private static void displaySearchOptions() {
+        //Create an Arraylist that will be populated in the do-while loop.
+        ArrayList<IMedia> media;
+
+        String input;
+        do {
+            //print 100 empty lines, so it looks like the console has been cleared.
+            clearConsole();
+
+            //Display options to the user, and prompt them to make a selection. Then save the selection in the input variable
+            TextUI.displayMessage("---------------------------------------------------------");
+            TextUI.displayMessage("How do you wish to search?");
+            TextUI.displayMessage("1)   Search by name.\n" +
+                                       "2)   Search by category.\n" +
+                                       "3)   Search by rating.\n");
+            input = TextUI.getInput("Enter your selection, or press 'Q' to return to main menu:");
+
+            switch (input) {
+                case "q":
+                case "Q":
+                    //If input is "Q" or "q" break out of the switch statement
+                    break;
+
+                case "1": {
+                    do {
+                        //Prompt the user with their actions
+                        TextUI.displayMessage("Press 'Q' to return.");
+                        String mediaName = TextUI.getInput("What is the name of the media you want to watch?");
+
+                        //Exit this loop if the user has entered "q" or "Q".
+                        if (mediaName.equalsIgnoreCase("q")) {
+                            media = null; //Setting media to null, to be able to break out of the switch statement.
+                            break;
+                        }
+
+                        //Receives a list from MainMenus searchName function, which we store in the Arraylist created above.
+                        media = MainMenu.searchName(mediaName);
+
+                        //If there is no elements in the list, we prompt the user to try again.
+                        if (media.size() == 0) {
+                            TextUI.displayMessage("That name was not found, try again.");
+                        }
+                    } while (media.size() == 0);
+
+                    // if media is null, then the user wants to exit to the main menu, therefore we break.
+                    if (media == null) break;
+
+                    //Prompt the user to let them know how many hits their search returned.
+                    TextUI.displayMessage("Your search returned " + media.size() + " media.");
+                    TextUI.getInput("Press enter to view the list.");
+
+                    /* Displays the list 1 by 1 with their given index in front.
+                     * Ex.: "1)  Game Of Thrones from ..."
+                     */
+                    for (int i = 0; i < media.size(); i++) {
+                        IMedia m = media.get(i);
+                        TextUI.displayMessage(
+                                (i + 1) + ")    " + m.getName() + " from " + m.getPublishingYear() + " has a rating of " + m.getRating() + "/10.");
+                    }
+
+                    //Gets an IMedia from the selectMedia function.
+                    IMedia selected = selectMedia(media);
+
+                    /*
+                     * Call onMediaSelected function with the IMedia from selectMedia,
+                     * and a call to the currentUsers listContainsMedia, that returns a boolean based on
+                     * if the selected media is in the list.
+                     */
+                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
+                    break;
+                }
+
+                case "2": {
+                    clearConsole();
+                    TextUI.displayMessage("Categories: ");
+                    displayListOfCategories();
+
+                    String categoryName = null;
+                    do {
+                        //Prompt the user to enter the category they want to search by.
+                        String categoryNum = TextUI.getInput(
+                                "Enter the category you would like to filter by:");
+
+                        try {
+                            int index = Integer.parseInt(categoryNum) - 1;
+                            categoryName = getCategoryFromList(index);
+                        } catch (Exception e) {
+                            TextUI.displayMessage("That was not a valid input. Please try again.");
+                        }
+
+                    } while (categoryName == null);
+
+                    //Receives a list from MainMenus searchCategory function, which we store in the Arraylist created above.
+                    media = MainMenu.searchCategory(categoryName);
+
+                    //Prompt the user to let them know how many hits their search returned.
+                    TextUI.getInput(
+                            "There is " + media.size() + " media in " + categoryName + ".\nPress enter to view the list.");
+
+                    /* Displays the list 1 by 1 with their given index in front.
+                     * Ex.: "1)  Game Of Thrones from ..."
+                     */
+                    for (int i = 0; i < media.size(); i++) {
+                        IMedia m = media.get(i);
+                        TextUI.displayMessage(
+                                (i + 1) + ")    " + m.getName() + " from " + m.getPublishingYear() + " has a rating of " + m.getRating() + "/10.");
+                    }
+
+                    //Gets an IMedia from the selectMedia function.
+                    IMedia selected = selectMedia(media);
+
+                    /* Call onMediaSelected function with the IMedia from selectMedia,
+                     * and a call to the currentUsers listContainsMedia, that returns a boolean based on
+                     * if the selected media is in the list.
+                     */
+                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
+                    break;
+                }
+
+                case "3": {
+                    do {
+                        //Prompt the user with their options
+                        TextUI.displayMessage("Press 'Q' to return.");
+                        String ratingStr = TextUI.getInput("What is the lowest rating you want? (1-10)");
+
+                        //Exit this loop if the user has entered "q" or "Q".
+                        if (ratingStr.equalsIgnoreCase("q")) {
+                            media = null; //Setting media to null, to be able to break out of the switch statement.
+                            break;
+                        }
+
+                        try {
+                            //Convert from string to float
+                            float rating = Float.parseFloat(ratingStr);
+                            //Get a list of media based on the rating the user entered
+                            media = MainMenu.searchRating(rating);
+                            break;
+                        } catch (Exception e) {
+                            //If any exception is thrown this will be displayed.
+                            TextUI.displayMessage("That was not valid input. Try again.");
+                        }
+                    } while (true);
+
+                    // if media is null, then the user wants to exit to the main menu, therefore we break.
+                    if (media == null) break;
+
+                    //Prompt the user to let them know how many hits their search returned.
+                    TextUI.displayMessage("Your search returned " + media.size() + " media.");
+                    TextUI.getInput("Press enter to view the list.");
+
+                    /* Displays the list 1 by 1 with their given index in front.
+                     * Ex.: "1)  Game Of Thrones from ..."
+                     */
+                    for (int i = 0; i < media.size(); i++) {
+                        IMedia m = media.get(i);
+                        TextUI.displayMessage(
+                                (i + 1) + ")    " + m.getName() + " from " + m.getPublishingYear() + " has a rating of " + m.getRating() + "/10.");
+                    }
+
+                    //Gets an IMedia from the selectMedia function.
+                    IMedia selected = selectMedia(media);
+
+                    /*
+                     * Call onMediaSelected function with the IMedia from selectMedia,
+                     * and a call to the currentUsers listContainsMedia, that returns a boolean based on
+                     * if the selected media is in the list.
+                     */
+                    onMediaSelected(selected, currentUser.listContainsMedia(currentUser.getSavedMedia(), selected));
+                    break;
+                }
+
+                default:
+                    //If none of the above is reached, prompt the user to let them know.
+                    TextUI.getInput("That was not a valid action. Press enter to try again.");
+                    clearConsole();
+                    break;
+            }
+        } while (!input.equalsIgnoreCase("q"));
+    }
+
     private static IMedia selectMedia(ArrayList<IMedia> medias) {
         //If media is null or empty return out of the function
         if (medias == null || medias.size()  == 0) {
@@ -199,7 +305,7 @@ public class Application {
         // we only exit this loop if we reach a return statement, else it will continue running.
         while (true) {
             //Prompt the user for a selection. This function is called after a list of options has been displayed.
-            String input = TextUI.getInput("Enter your selection here, or press 'Q' to return to main menu.");
+            String input = TextUI.getInput("Enter your selection here, or press 'Q' to return:");
             switch (input) {
                 case "Q":
                 case "q":
@@ -223,8 +329,7 @@ public class Application {
         }
     }
 
-    private static void onMediaSelected(IMedia selectedMedia, boolean savedMedia)
-    {
+    private static void onMediaSelected(IMedia selectedMedia, boolean savedMedia) {
         if (selectedMedia == null) {
             return;
         }
@@ -245,10 +350,9 @@ public class Application {
                 TextUI.displayMessage("2)   Remove from your saved media list.");
             }
             //Prompt the user to make a selection or exit to the main menu
-            input = TextUI.getInput("Enter your selection, or press 'Q' to return to the main menu:");
+            input = TextUI.getInput("Enter your selection, or press 'Q' to return:");
 
-            switch (input)
-            {
+            switch (input) {
                 case "q":
                 case "Q":
                     //If input is "q" or "Q" return from the function, to the main menu.
@@ -365,6 +469,18 @@ public class Application {
             //display each element, formatted like this: "1)    'category'"
             TextUI.displayMessage((i+1) + ")    " + categories[i]);
         }
+    }
+
+    private static String getCategoryFromList(int index)
+    {
+        String[] categories = "Talk-show, Documentary, Crime, Drama, Action, Adventure, Drama, Comedy, Fantasy, Animation, Horror, Sci-fi, War, Thriller, Mystery, Biography, History, Family, Western, Romance, Sport".split(",");
+
+        if (index < categories.length)
+        {
+            return categories[index].trim();
+        }
+
+        return null;
     }
     public static void clearConsole() {
         for (int i = 0; i < 100; i++) {
