@@ -1,14 +1,4 @@
 username, password, watchedMovie1: watchedMovie2, savedMovie1: savedMovie2
-<<<<<<< HEAD
-Tobias,Test123,Band Of Brothers:Casablanca:Rome,Band Of Brothers:Casablanca:Game Of Thrones
-tobiasb,tobiasb,null,null
-battet,123,The Wizard Of Oz,null
-=======
 Tobias,Test123,Band Of Brothers:Casablanca:Rome:Rocky,Band Of Brothers:Casablanca:Game Of Thrones
 Snadering,sander123,Rocky,Rocky
 Plundf,Palle123,Rocky,null
-Tobias,Test123,Band Of Brothers:Casablanca:Rome,Band Of Brothers:Casablanca:Game Of Thrones:Shameless
-tobiasb,tobiasb,Sex & The City:Sex & The City
-
->>>>>>> master
-bast,n,Raging Bull,null

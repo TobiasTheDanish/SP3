@@ -7,14 +7,14 @@ public class User{
     private ArrayList<IMedia> watchedMedia;
     private ArrayList<IMedia> savedMedia;
 
-    public User(String username, String password){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
         watchedMedia = initWatchedMedia(username);
         savedMedia = initSavedMedia(username);
     }
 
-    private ArrayList<IMedia> initWatchedMedia(String username){
+    private ArrayList<IMedia> initWatchedMedia(String username) {
         ArrayList<IMedia> returnList = new ArrayList<>();
         String data = FileIO.getSingleUserData(username);
         if (data == null) return new ArrayList<>();
@@ -25,13 +25,12 @@ public class User{
         String[] watchedMedia = watchedMediaStr.split(":");
 
         for (String mediaName : watchedMedia) {
-            returnList.add(MainMenu.Search(mediaName));
+            returnList.add(MainMenu.search(mediaName));
         }
-
         return returnList;
     }
 
-    private ArrayList<IMedia> initSavedMedia(String username){
+    private ArrayList<IMedia> initSavedMedia(String username) {
         ArrayList<IMedia> returnList = new ArrayList<>();
 
         String data = FileIO.getSingleUserData(username);
@@ -43,46 +42,47 @@ public class User{
         String[] savedMedia = savedMediaStr.split(":");
 
         for (String mediaName : savedMedia) {
-            returnList.add(MainMenu.Search(mediaName));
+            returnList.add(MainMenu.search(mediaName));
         }
-
         return returnList;
     }
 
-    public ArrayList<IMedia> getWatchedMedia(){
+    public ArrayList<IMedia> getWatchedMedia() {
         return watchedMedia;
     }
 
-    public ArrayList<IMedia> getSavedMedia(){
+    public ArrayList<IMedia> getSavedMedia() {
         return savedMedia;
     }
 
-    public void addToWatchedMedia (IMedia media){
-        if (!listContainsMedia(watchedMedia, media)){
+    public void addToWatchedMedia (IMedia media) {
+        //If the list of watched media, does not contain the watched media, it will be added.
+        if (!listContainsMedia(watchedMedia, media)) {
             watchedMedia.add(media);
             TextUI.displayMessage(media.getName() + " has been added to watched media.");
+            //Else it will not be added.
         } else {
             TextUI.displayMessage(media.getName() + " has already been added to watched media.");
         }
     }
 
-    public void addToSavedMedia (IMedia media){
-        if (!listContainsMedia(savedMedia, media)){
+    public void addToSavedMedia (IMedia media) {
+        //If the list of saved media, does not contain the saved media, it will be added.
+        if (!listContainsMedia(savedMedia, media)) {
             savedMedia.add(media);
             TextUI.displayMessage(media.getName() + " has been added to saved media.");
+            //Else it will not be added.
         } else {
             TextUI.displayMessage(media.getName() + " has already been added to saved media.");
         }
     }
-    //A function for removing media from saved list...
-    public void removeFromSavedMedia(IMedia media){
-        /*
-        A for loop going through the saved media list, checking if the media is on the list.
-        If the media is on the list, it will be removed from saved media.
-        */
-        for (int i = 0; i < savedMedia.size(); i++){
+
+    public void removeFromSavedMedia(IMedia media) {
+        //A for loop going through the saved media list and giving indexes.
+        for (int i = 0; i < savedMedia.size(); i++) {
             IMedia m = savedMedia.get(i);
-            if (m.getName().equals(media.getName())){
+            //An if statement for removing saved media from the list
+            if (m.getName().equals(media.getName())) {
                savedMedia.remove(i);
                TextUI.displayMessage(media.getName()+" has been removed from saved media.");
                return;
@@ -91,11 +91,10 @@ public class User{
     }
 
     public boolean listContainsMedia(ArrayList<IMedia> list, IMedia media) {
-        if (media == null){
+        if (media == null) {
             return false;
         }
-
-        for (IMedia m : list){
+        for (IMedia m : list) {
             if (m.getName().equals(media.getName())) {
                 return true;
             }
@@ -103,11 +102,11 @@ public class User{
         return false;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 }
