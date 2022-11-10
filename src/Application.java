@@ -36,7 +36,6 @@ public class Application {
         media.play();
         //Add the passed in IMedia type to the users watched list
         currentUser.addToWatchedMedia(media);
-
         //Prompt the user for input, to make sure they see the message.
         TextUI.getInput("Press enter to return to main menu");
     }
@@ -82,7 +81,6 @@ public class Application {
                             TextUI.displayMessage("That name was not found, try again.");
                         }
                     } while (media.size() == 0);
-
                     // if media is null, then the user wants to exit to the main menu, therefore we break.
                     if (media == null) break;
                     //Prompt the user to let them know how many hits their search returned.
@@ -213,7 +211,6 @@ public class Application {
                     try {
                         //try to parse the input to an int. We subtract 1 because we display the first element as 1.
                         int index = (Integer.parseInt(input)) - 1;
-
                         //return the media at the selected index
                         return medias.get(index);
 
@@ -231,7 +228,6 @@ public class Application {
         if (selectedMedia == null) {
             return;
         }
-
         String input;
         //Print 100 empty lines, so it looks like the console has been cleared.
         clearConsole();
@@ -285,7 +281,6 @@ public class Application {
             //Print 100 empty lines to make it look like the console has been cleared.
             clearConsole();
         } while(!input.equalsIgnoreCase("q"));
-
         clearConsole();
     }
 
@@ -306,21 +301,16 @@ public class Application {
                 for (String s : data) {
                     //Split each line of data into a String array.
                     String[] movieData = s.split(";");
-
                     //The first element in the array is the movies name
                     String name = movieData[0].trim();
-
                     //The second element in the array is the movies publishing year
                     String publishingYear = movieData[1].trim();
-
                     //The third element in the array is the movies categories
                     List<String> list = Arrays.asList(movieData[2].split(","));
                     list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
-
                     //The fourth element in the array is the movies rating
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
-
                     //Instantiate new Movie object
                     IMedia m = new Movie(name, publishingYear, categories, rating);
                     //Save the new object to the media arraylist.
@@ -333,21 +323,16 @@ public class Application {
                 for (String s : data) {
                     //Split each line of data into a String array.
                     String[] movieData = s.split(";");
-
                     //The first element in the array is the series' name
                     String name = movieData[0].trim();
-
                     //The second element in the array is the series' publishing year
                     String publishingYear = movieData[1].trim();
-
                     //The third element in the array is the series' categories
                     List<String> list = Arrays.asList(movieData[2].split(","));
                     list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
-
                     //The fourth element in the array is the series' rating
                     float rating = Float.parseFloat(movieData[3].replace(',', '.'));
-
                     //The fifth element in the array is the seasons and episodes
                     String[] seasonsAndEpisodes = movieData[4].split(",");
                     //The number of seasons is the length of the above array.
@@ -368,7 +353,6 @@ public class Application {
                 //If something else is passed in we return an empty arraylist.
                 return new ArrayList<>();
         }
-
         //Return the media arraylist
         return medias;
     }
@@ -376,7 +360,6 @@ public class Application {
     private static void displayListOfCategories() {
         //An array of all the categories represented in the program
         String[] categories = "Talk-show, Documentary, Crime, Drama, Action, Adventure, Drama, Comedy, Fantasy, Animation, Horror, Sci-fi, War, Thriller, Mystery, Biography, History, Family, Western, Romance, Sport".split(",");
-
         //loop over each category in the array
         for (int i = 0; i < categories.length; i++) {
             //display each element, formatted like this: "1)    'category'"
