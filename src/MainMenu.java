@@ -19,6 +19,9 @@ public class MainMenu {
         }
         return null;
     }
+
+
+    // --  A search function that will let you search for keywords --
    /*
     public static IMedia Search() throws IOException {
         String searchWord;
@@ -77,6 +80,24 @@ public class MainMenu {
                 }
             }
         }
+        return searchResults;
+    }
+
+
+    public static ArrayList<IMedia> searchRating(float rating){
+        ArrayList<IMedia> searchResults = new ArrayList<>();
+        for (IMedia m : Application.movies) {
+            if (m.getRating() >= rating){
+                searchResults.add(m);
+            }
+        }
+
+        for (IMedia s : Application.series) {
+            if (s.getRating() >= rating){
+                searchResults.add(s);
+            }
+        }
+
         return searchResults;
     }
 
