@@ -190,16 +190,9 @@ public class Application {
                 }
 
                 case "2": {
-                    String selection;
-                    do {
-                        selection = TextUI.getInput("Press 'L' for at list of categories");
-
-                        //Displays a list of categories if the user presses "l" or "L"
-                        if (selection.equalsIgnoreCase("l"))
-                        {
-                            displayListOfCategories();
-                        }
-                    } while (!selection.equalsIgnoreCase("l"));
+                    clearConsole();
+                    TextUI.displayMessage("Categories: ");
+                    displayListOfCategories();
 
                     String categoryName = null;
                     do {
@@ -247,7 +240,7 @@ public class Application {
                     do {
                         //Prompt the user with their options
                         TextUI.displayMessage("Press 'Q' to return.");
-                        String ratingStr = TextUI.getInput("What is the lowest rating you want?");
+                        String ratingStr = TextUI.getInput("What is the lowest rating you want? (1-10)");
 
                         //Exit this loop if the user has entered "q" or "Q".
                         if (ratingStr.equalsIgnoreCase("q")) {
