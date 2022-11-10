@@ -64,11 +64,37 @@ public class MainMenu {
     }
 
 
-    public static ArrayList<IMedia> getUsersWatchedMedia(User user) {
-        return user.getWatchedMedia();
+    public static ArrayList<IMedia> searchRating(float rating){
+        ArrayList<IMedia> searchResults = new ArrayList<>();
+        for (IMedia m : Application.movies) {
+            if (m.getRating() >= rating){
+                searchResults.add(m);
+            }
+        }
+
+        for (IMedia s : Application.series) {
+            if (s.getRating() >= rating){
+                searchResults.add(s);
+            }
+        }
+
+        return searchResults;
     }
 
-    public static ArrayList<IMedia> getUsersSavedMedia(User user) {
-        return user.getSavedMedia();
+
+    public static ArrayList<IMedia> getUsersWatchedMedia(User user)
+    {
+        return user.getWatchedMedia();
+
     }
+
+    //Add to a
+    public static ArrayList<IMedia> getUsersSavedMedia(User user)
+    {
+        return user.getSavedMedia();
+
+    }
+
+
+
 }
