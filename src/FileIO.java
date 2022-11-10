@@ -60,56 +60,42 @@ public class FileIO {
         }
     }
 
-    public static String getSingleUserData(String username)
-    {
+    public static String getSingleUserData(String username) {
         ArrayList<String> data = FileIO.readFile("data/userdata.csv");
 
-        for (String s : data)
-        {
-            if (s.split(",")[0].equalsIgnoreCase(username))
-            {
+        for (String s : data) {
+            if (s.split(",")[0].equalsIgnoreCase(username)) {
                 return s;
             }
         }
-
         return null;
     }
 
-    private static String createUserDataString(User user)
-    {
+    private static String createUserDataString(User user) {
         String userData = user.getUsername() + "," + user.getPassword() + ",";
 
         ArrayList<IMedia> watchedMedia = user.getWatchedMedia();
-        if (watchedMedia.size() > 0)
-        {
-            for (int j = 0; j < watchedMedia.size() - 1; j++)
-            {
+        if (watchedMedia.size() > 0) {
+            for (int j = 0; j < watchedMedia.size() - 1; j++) {
                 IMedia m = watchedMedia.get(j);
                 userData += m.getName() + ":";
             }
-
             IMedia m = watchedMedia.get(watchedMedia.size()-1);
             userData += m.getName() + ",";
-        }
-        else
-        {
+        } else {
             userData += "null,";
         }
 
         ArrayList<IMedia> savedMedia = user.getSavedMedia();
-        if (savedMedia.size() > 0)
-        {
-            for (int j = 0; j < savedMedia.size() - 1; j++)
-            {
+        if (savedMedia.size() > 0) {
+            for (int j = 0; j < savedMedia.size() - 1; j++) {
                 IMedia m = savedMedia.get(j);
                 userData += m.getName() + ":";
             }
 
             IMedia m = savedMedia.get(savedMedia.size()-1);
             userData += m.getName();
-        }
-        else
-        {
+        } else {
             userData += "null";
         }
         return userData;

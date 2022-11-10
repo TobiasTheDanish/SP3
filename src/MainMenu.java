@@ -1,85 +1,65 @@
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class MainMenu {
-
-
-    public static IMedia Search(String mediaName) {
-        for (IMedia m : Application.movies) {
-            if (m.getName().equalsIgnoreCase(mediaName.trim())) {
-                return m;
-            }
-
+    //Making a function where we are able to search by name in our arraylist
+    //Does not make any difference whether it's a movie or a series
+    public static IMedia search(String mediaName) {
+        //Using a foreach loop to be able to search in our arraylist
+        // will return the name of the movie if it's in the list
+        for (IMedia m: Application.movies) {
+             if(m.getName().equalsIgnoreCase(mediaName)) {
+                 return m;
+             }
         }
+        //Using a foreach loop to be able to search in our arraylist
+        // will return the name of the movie if it's in the list
         for (IMedia s : Application.series) {
-            if (s.getName().equalsIgnoreCase(mediaName.trim())) {
+            if(s.getName().equalsIgnoreCase(mediaName)) {
                 return s;
             }
         }
         return null;
     }
 
+    public static ArrayList<IMedia> searchName(String mediaName) {
+        ArrayList<IMedia> resultList = new ArrayList<>();
 
-    // --  A search function that will let you search for keywords --
-   /*
-    public static IMedia Search() throws IOException {
-        String searchWord;
-        String str;
-
-        File input = new File("data/moviedata.csv");
-        FileReader reader = null;
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please enter a keyword you would like to search for: ");
-        searchWord = scanner.nextLine();
-
-        try {
-            reader = new FileReader(input);
-            BufferedReader br = new BufferedReader(reader);
-
-            while ((str = br.readLine()) != null) {
-                if (str.contains(searchWord)) {
-                    TextUI.displayMessage(str);
-                }
-
+        for (IMedia m: Application.movies) {
+            if(m.getName().toLowerCase().contains(mediaName.toLowerCase())) {
+                resultList.add(m);
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            reader.close();
         }
-        return null;
+        for (IMedia s : Application.series) {
+            if(s.getName().toLowerCase().contains(mediaName.toLowerCase())) {
+                resultList.add(s);
+            }
+        }
+        return resultList;
     }
 
-      */
 
-    public static ArrayList<IMedia> searchCategory(String category)
-    {
+    public static ArrayList<IMedia> searchCategory(String category) {
+        //Using foreach loop to search by category in our arraylist
+        //First loop through movies by calling the application class
         ArrayList<IMedia> searchResults = new ArrayList<>();
-        for (IMedia m : Application.movies)
-        {
-            for (String cat : m.getCategories())
-            {
-                if (cat.equalsIgnoreCase(category))
-                {
+        for (IMedia m : Application.movies) {
+            for (String cat : m.getCategories()) {
+                if (cat.equalsIgnoreCase(category)) {
                     searchResults.add(m);
-
                 }
             }
         }
-
-        for (IMedia s : Application.series)
-        {
-            for (String cat : s.getCategories())
-            {
-                if (cat.equalsIgnoreCase(category))
-                {
+        //Using foreach loop to search by category in our arraylist
+        //Then loop through series by calling the application class
+        for (IMedia s : Application.series) {
+            for (String cat : s.getCategories()) {
+                if (cat.equalsIgnoreCase(category)) {
                     searchResults.add(s);
                 }
             }
         }
+        //Return a list of movies in the given category
         return searchResults;
     }
 
