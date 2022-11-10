@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class StartMenu {
 
     public static User logIn() {
+
         String currentPassword;
         //Assigning the users input to currentUsername.
         String currentUsername = TextUI.getInput("Please enter a username: ");
@@ -11,20 +12,37 @@ public class StartMenu {
            match an already existing username.
          */
         if(existingUsername(currentUsername)) {
+            String input;
             //If the username already exists, it will ask for your matching password.
+            TextUI.displayMessage("Looks like the username already exists.");
             currentPassword = TextUI.getInput("Please enter your password: ");
            if(correctPassword(currentPassword)) {
+
                //If the given password match the one we have stored in userdata.csv, you will be logged in.
                System.out.println("You've successfully logged in to Dataflix");
                return new User(currentUsername, currentPassword);
            } else {
-               //If the password doesn't match, it will let you know, and ask for your password again.
-               while(!correctPassword(currentPassword)) {
+               while (!correctPassword(currentPassword)) {
+                   //TextUI.displayMessage("-- Incorrect Password --");
+
                    TextUI.displayMessage("-- Incorrect Password --");
-                   currentPassword = TextUI.getInput("Please enter your password: ");
+                   do {
+                       input = TextUI.getInput("Try again(T) or go back(B)");
+
+                       if (input.equalsIgnoreCase("B")) {
+                           logIn();
+                       } else if (input.equalsIgnoreCase("T")) {
+                           currentPassword = TextUI.getInput("Please enter your password: ");
+                           //If the password doesn't match, it will let you know, and ask for your password again.
+
+                           if (correctPassword(currentPassword)) {
+                               System.out.println("You've successfully logged in to Dataflix");
+                               return new User(currentUsername, currentPassword);
+                           }
+                       }
+
+                   } while (!input.equalsIgnoreCase("T") && !input.equalsIgnoreCase("B"));
                }
-               System.out.println("You've successfully logged in to Dataflix");
-                return new User(currentUsername, currentPassword);
            }
         }
         //If the users input for username doesn't match any usernames from the userdata.csv, it will give you following options.

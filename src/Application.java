@@ -141,6 +141,7 @@ public class Application {
                     break;
 
                 case "1": {
+                    clearConsole();
                     do {
                         //Prompt the user with their actions
                         TextUI.displayMessage("Press 'Q' to return.");
@@ -157,6 +158,7 @@ public class Application {
 
                         //If there is no elements in the list, we prompt the user to try again.
                         if (media.size() == 0) {
+                            clearConsole();
                             TextUI.displayMessage("That name was not found, try again.");
                         }
                     } while (media.size() == 0);
@@ -204,11 +206,12 @@ public class Application {
                             int index = Integer.parseInt(categoryNum) - 1;
                             categoryName = getCategoryFromList(index);
                         } catch (Exception e) {
+                            clearConsole();
                             TextUI.displayMessage("That was not a valid input. Please try again.");
                         }
-
                     } while (categoryName == null);
 
+                    clearConsole();
                     //Receives a list from MainMenus searchCategory function, which we store in the Arraylist created above.
                     media = MainMenu.searchCategory(categoryName);
 
@@ -238,6 +241,7 @@ public class Application {
 
                 case "3": {
                     do {
+                        clearConsole();
                         //Prompt the user with their options
                         TextUI.displayMessage("Press 'Q' to return.");
                         String ratingStr = TextUI.getInput("What is the lowest rating you want? (1-10)");
@@ -251,21 +255,36 @@ public class Application {
                         try {
                             //Convert from string to float
                             float rating = Float.parseFloat(ratingStr);
+                            if (rating > 10)
+                            {
+                                throw new Exception();
+                            }
                             //Get a list of media based on the rating the user entered
                             media = MainMenu.searchRating(rating);
+                            if (media.size() == 0)
+                            {
+                                TextUI.displayMessage("Your search returned 0 media");
+                                TextUI.getInput("Press 'ENTER' to try again.");
+
+                                clearConsole();
+                                continue;
+                            }
                             break;
                         } catch (Exception e) {
                             //If any exception is thrown this will be displayed.
-                            TextUI.displayMessage("That was not valid input. Try again.");
+                            clearConsole();
+                            TextUI.getInput("That was not valid input. Press 'ENTER' to try again.");
                         }
+
                     } while (true);
 
                     // if media is null, then the user wants to exit to the main menu, therefore we break.
                     if (media == null) break;
 
+                    clearConsole();
                     //Prompt the user to let them know how many hits their search returned.
                     TextUI.displayMessage("Your search returned " + media.size() + " media.");
-                    TextUI.getInput("Press enter to view the list.");
+                    TextUI.getInput("Press 'ENTER' to view the list.");
 
                     /* Displays the list 1 by 1 with their given index in front.
                      * Ex.: "1)  Game Of Thrones from ..."
