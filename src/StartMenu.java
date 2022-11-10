@@ -21,7 +21,6 @@ public class StartMenu {
                //If the given password match the one we have stored in userdata.csv, you will be logged in.
                System.out.println("You've successfully logged in to Dataflix");
                return new User(currentUsername, currentPassword);
-
            } else {
                while (!correctPassword(currentPassword)) {
                    //TextUI.displayMessage("-- Incorrect Password --");
@@ -99,8 +98,8 @@ public class StartMenu {
     just with index[1] as that is where the passwords are stored.
      */
     private static boolean correctPassword(String password) {
-
         ArrayList<String> data = FileIO.readFile("data/userdata.csv");
+
         for(int i = 0; i < data.size(); i++) {
             if (data.get(i).split(",")[1].equals(password)) {
                 return true;

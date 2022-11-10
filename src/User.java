@@ -56,26 +56,32 @@ public class User{
     }
 
     public void addToWatchedMedia (IMedia media) {
+        //If the list of watched media, does not contain the watched media, it will be added.
         if (!listContainsMedia(watchedMedia, media)) {
             watchedMedia.add(media);
             TextUI.displayMessage(media.getName() + " has been added to watched media.");
+            //Else it will not be added.
         } else {
             TextUI.displayMessage(media.getName() + " has already been added to watched media.");
         }
     }
 
     public void addToSavedMedia (IMedia media) {
+        //If the list of saved media, does not contain the saved media, it will be added.
         if (!listContainsMedia(savedMedia, media)) {
             savedMedia.add(media);
             TextUI.displayMessage(media.getName() + " has been added to saved media.");
+            //Else it will not be added.
         } else {
             TextUI.displayMessage(media.getName() + " has already been added to saved media.");
         }
     }
 
     public void removeFromSavedMedia(IMedia media) {
+        //A for loop going through the saved media list and giving indexes.
         for (int i = 0; i < savedMedia.size(); i++) {
             IMedia m = savedMedia.get(i);
+            //An if statement for removing saved media from the list
             if (m.getName().equals(media.getName())) {
                savedMedia.remove(i);
                TextUI.displayMessage(media.getName()+" has been removed from saved media.");
