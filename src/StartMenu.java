@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class StartMenu {
 
     public static User logIn() {
-
         String currentPassword;
         //Assigning the users input to currentUsername.
         String currentUsername = TextUI.getInput("Please enter a username: ");

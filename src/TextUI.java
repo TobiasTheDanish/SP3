@@ -11,4 +11,11 @@ public class TextUI {
         displayMessage(msg);
         return scn.nextLine();
     }
+
+    public static void clearConsole() {
+        for (int i = 0; i < 100; i++) {
+            //Print 100 empty lines to make the console look like it has been cleared.
+            displayMessage("");
+        }
+    }
 }
