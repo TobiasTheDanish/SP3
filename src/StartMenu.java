@@ -26,7 +26,7 @@ public class StartMenu {
                        input = TextUI.getInput("Try again(T) or go back(B)");
 
                        if (input.equalsIgnoreCase("B")) {
-                           logIn();
+                           return logIn();
                        } else if (input.equalsIgnoreCase("T")) {
                            currentPassword = TextUI.getInput("Please enter your password: ");
                            //If the password doesn't match, it will let you know, and ask for your password again.
