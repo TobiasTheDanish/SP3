@@ -217,9 +217,7 @@ public class Application {
                     media = MainMenu.searchCategory(categoryName);
 
                     //Prompt the user to let them know how many hits their search returned.
-                    TextUI.getInput(
-                            "There is " + media.size() + " media in " + categoryName + ".\nPress enter to view the list.");
-
+                    TextUI.getInput("There is " + media.size() + " media in " + categoryName + ".\nPress enter to view the list.");
                     /* Displays the list 1 by 1 with their given index in front.
                      * Ex.: "1)  Game Of Thrones from ..."
                      */
@@ -256,14 +254,12 @@ public class Application {
                         try {
                             //Convert from string to float
                             float rating = Float.parseFloat(ratingStr);
-                            if (rating > 10)
-                            {
+                            if (rating > 10) {
                                 throw new Exception();
                             }
                             //Get a list of media based on the rating the user entered
                             media = MainMenu.searchRating(rating);
-                            if (media.size() == 0)
-                            {
+                            if (media.size() == 0) {
                                 TextUI.displayMessage("Your search returned 0 media");
                                 TextUI.getInput("Press 'ENTER' to try again.");
 
@@ -286,7 +282,6 @@ public class Application {
                     //Prompt the user to let them know how many hits their search returned.
                     TextUI.displayMessage("Your search returned " + media.size() + " media.");
                     TextUI.getInput("Press 'ENTER' to view the list.");
-
                     /* Displays the list 1 by 1 with their given index in front.
                      * Ex.: "1)  Game Of Thrones from ..."
                      */
@@ -298,7 +293,6 @@ public class Application {
 
                     //Gets an IMedia from the selectMedia function.
                     IMedia selected = selectMedia(media);
-
                     /*
                      * Call onMediaSelected function with the IMedia from selectMedia,
                      * and a call to the currentUsers listContainsMedia, that returns a boolean based on
@@ -408,13 +402,11 @@ public class Application {
         TextUI.clearConsole();
     }
 
-    private static ArrayList<IMedia> getMediaData(String filePath, String type){
+    private static ArrayList<IMedia> getMediaData(String filePath, String type) {
         //The type parameter should tell us whether it's a movie or a series (An enum would be better).
-
         //Read the file at located at filePath (FileIO.readFile(filePath)) and save it in an Arraylist<String> called data
         //Split each string in data, so that we can create a IMedia type object based on the type (either a movie or series)
         //then add that IMedia to an Arraylist<IMedia>.
-
         //When we have looped over all the strings in data, return the Arraylist<IMedia>
         ArrayList<IMedia> medias = new ArrayList<>();
         ArrayList<String> data = FileIO.readFile(filePath);
@@ -491,15 +483,12 @@ public class Application {
         }
     }
 
-    private static String getCategoryFromList(int index)
-    {
+    private static String getCategoryFromList(int index) {
         String[] categories = "Talk-show, Documentary, Crime, Drama, Action, Adventure, Drama, Comedy, Fantasy, Animation, Horror, Sci-fi, War, Thriller, Mystery, Biography, History, Family, Western, Romance, Sport".split(",");
 
-        if (index < categories.length)
-        {
+        if (index < categories.length) {
             return categories[index].trim();
         }
-
         return null;
     }
 

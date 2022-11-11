@@ -58,24 +58,18 @@ public class MainMenu {
                 searchResults.add(s);
             }
         }
-
         return searchResults;
     }
 
 
-    public static ArrayList<IMedia> getUsersWatchedMedia(User user)
-    {
+    public static ArrayList<IMedia> getUsersWatchedMedia(User user) {
         return user.getWatchedMedia();
 
     }
 
     //Add to a
-    public static ArrayList<IMedia> getUsersSavedMedia(User user)
-    {
+    public static ArrayList<IMedia> getUsersSavedMedia(User user) {
         return user.getSavedMedia();
 
     }
-
-
-
 }
