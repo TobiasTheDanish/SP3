@@ -21,8 +21,8 @@ public class StartMenu {
                return new User(currentUsername, currentPassword);
            } else {
                while (!correctPassword(currentPassword)) {
-                   TextUI.displayMessage("-- Incorrect Password --");
                    do {
+                       TextUI.displayMessage("-- Incorrect Password --");
                        input = TextUI.getInput("Try again(T) or go back(B)");
 
                        if (input.equalsIgnoreCase("B")) {
