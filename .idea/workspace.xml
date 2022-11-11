@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="615680f0-460d-4347-8b5e-d2bd99ff2b33" name="Changes" comment="Added the ability to return from the search selection without searching">
+    <list default="true" id="615680f0-460d-4347-8b5e-d2bd99ff2b33" name="Changes" comment="Fucking workspace.xml...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/userdata.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/userdata.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AMedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AMedia.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TextUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TextUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StartMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StartMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +104,42 @@
       <option name="project" value="LOCAL" />
       <updated>1667903800192</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Refactoring and added saving of data when a media is added to a list">
+      <created>1668159746755</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668159746755</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactoring of clearConsole function from Application to TextUI">
+      <created>1668159802571</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668159802571</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Refactoring of old search function from MainMenu to Application">
+      <created>1668159839986</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668159839986</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Refactoring of unused imports and clearConsole() calls">
+      <created>1668159901823</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668159901823</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fucking workspace.xml...">
+      <created>1668159922980</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1668159922980</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,6 +156,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update workspace.xml" />
     <MESSAGE value="Added the ability to return from the search selection without searching" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the ability to return from the search selection without searching" />
+    <MESSAGE value="Refactoring and added saving of data when a media is added to a list" />
+    <MESSAGE value="Refactoring of clearConsole function from Application to TextUI" />
+    <MESSAGE value="Refactoring of old search function from MainMenu to Application" />
+    <MESSAGE value="Refactoring of unused imports and clearConsole() calls" />
+    <MESSAGE value="Fucking workspace.xml..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fucking workspace.xml..." />
   </component>
 </project>
