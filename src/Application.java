@@ -13,6 +13,7 @@ public class Application {
         movies = getMediaData("data/moviedata.csv", "movie");
         //Gets data from the seriesdata file
         series = getMediaData("data/seriesdata.csv", "series");
+
         //Welcome message
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("     Welcome to Dataflix.");
