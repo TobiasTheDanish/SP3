@@ -92,15 +92,15 @@ public class FileIO implements IDataIO {
                     //Split each line of data into a String array.
                     String[] movieData = s.split(";");
                     //The first element in the array is the movies name
-                    String name = movieData[0].trim();
+                    String name = movieData[1].trim();
                     //The second element in the array is the movies publishing year
-                    String publishingYear = movieData[1].trim();
+                    String publishingYear = movieData[2].trim();
                     //The third element in the array is the movies categories
-                    List<String> list = Arrays.asList(movieData[2].split(","));
+                    List<String> list = Arrays.asList(movieData[3].split(","));
                     list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
                     //The fourth element in the array is the movies rating
-                    float rating = Float.parseFloat(movieData[3].replace(',', '.'));
+                    float rating = Float.parseFloat(movieData[4].replace(',', '.'));
                     //Instantiate new Movie object
                     IMedia m = new Movie(name, publishingYear, categories, rating);
                     //Save the new object to the media arraylist.
@@ -114,17 +114,17 @@ public class FileIO implements IDataIO {
                     //Split each line of data into a String array.
                     String[] movieData = s.split(";");
                     //The first element in the array is the series' name
-                    String name = movieData[0].trim();
+                    String name = movieData[1].trim();
                     //The second element in the array is the series' publishing year
-                    String publishingYear = movieData[1].trim();
+                    String publishingYear = movieData[2].trim();
                     //The third element in the array is the series' categories
-                    List<String> list = Arrays.asList(movieData[2].split(","));
+                    List<String> list = Arrays.asList(movieData[3].split(","));
                     list.replaceAll(String::trim);
                     ArrayList<String> categories = new ArrayList<>(list);
                     //The fourth element in the array is the series' rating
-                    float rating = Float.parseFloat(movieData[3].replace(',', '.'));
+                    float rating = Float.parseFloat(movieData[4].replace(',', '.'));
                     //The fifth element in the array is the seasons and episodes
-                    String[] seasonsAndEpisodes = movieData[4].split(",");
+                    String[] seasonsAndEpisodes = movieData[5].split(",");
                     //The number of seasons is the length of the above array.
                     int seasons = seasonsAndEpisodes.length;
                     int episodes = 0;
