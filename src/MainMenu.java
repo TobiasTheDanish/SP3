@@ -2,25 +2,6 @@ import java.util.ArrayList;
 
 
 public class MainMenu {
-    //Making a function where we are able to search by name in our arraylist
-    //Does not make any difference whether it's a movie or a series
-    public static IMedia search(String mediaName) {
-        //Using a foreach loop to be able to search in our arraylist
-        // will return the name of the movie if it's in the list
-        for (IMedia m: Application.movies) {
-             if(m.getName().equalsIgnoreCase(mediaName)) {
-                 return m;
-             }
-        }
-        //Using a foreach loop to be able to search in our arraylist
-        // will return the name of the movie if it's in the list
-        for (IMedia s : Application.series) {
-            if(s.getName().equalsIgnoreCase(mediaName)) {
-                return s;
-            }
-        }
-        return null;
-    }
 
     public static ArrayList<IMedia> searchName(String mediaName) {
         ArrayList<IMedia> resultList = new ArrayList<>();
