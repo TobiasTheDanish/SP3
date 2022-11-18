@@ -3,22 +3,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Application {
+    static IDataIO dataIO;
     private static User currentUser;
     public static ArrayList<IMedia> movies;
     public static ArrayList<IMedia> series;
 
     public static void run() {
+        dataIO = new FileIO();
+
         //Gets data from the moviedata file
-        movies = getMediaData("data/moviedata.csv", "movie");
+        movies = dataIO.getMediaData("data/moviedata.csv", "movie");
         //Gets data from the seriesdata file
-        series = getMediaData("data/seriesdata.csv", "series");
+        series = dataIO.getMediaData("data/seriesdata.csv", "series");
 
         //Welcome message
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("     Welcome to Dataflix.");
         TextUI.displayMessage("------------------------------");
         //Get the logged-in user via StartMenu. This returns a User object, with data from the userdata file.
-        currentUser = StartMenu.logIn();
+        currentUser = StartMenu.logIn(dataIO);
 
         TextUI.displayMessage("------------------------------");
         TextUI.displayMessage("Welcome " + currentUser.getUsername() + ".");
@@ -26,7 +29,7 @@ public class Application {
         // uses the MainMenu class to display options. This is where the primary program loop takes place
         displayUserOptions();
         //Writes the currently logged-in users data to the userdata file, before "logging out".
-        FileIO.writeUserDataToFile(currentUser);
+        dataIO.writeUserData(currentUser);
 
         TextUI.displayMessage("---------------------------------------------------------");
         TextUI.displayMessage("     Thank you for using Dataflix. Logging out...");
@@ -400,77 +403,6 @@ public class Application {
             TextUI.clearConsole();
         } while(!input.equalsIgnoreCase("q"));
         TextUI.clearConsole();
-    }
-
-    private static ArrayList<IMedia> getMediaData(String filePath, String type) {
-        //The type parameter should tell us whether it's a movie or a series (An enum would be better).
-        //Read the file at located at filePath (FileIO.readFile(filePath)) and save it in an Arraylist<String> called data
-        //Split each string in data, so that we can create a IMedia type object based on the type (either a movie or series)
-        //then add that IMedia to an Arraylist<IMedia>.
-        //When we have looped over all the strings in data, return the Arraylist<IMedia>
-        ArrayList<IMedia> medias = new ArrayList<>();
-        ArrayList<String> data = FileIO.readFile(filePath);
-
-        switch (type) {
-            case "movie":
-                //Loop over all the date from the file.
-                for (String s : data) {
-                    //Split each line of data into a String array.
-                    String[] movieData = s.split(";");
-                    //The first element in the array is the movies name
-                    String name = movieData[0].trim();
-                    //The second element in the array is the movies publishing year
-                    String publishingYear = movieData[1].trim();
-                    //The third element in the array is the movies categories
-                    List<String> list = Arrays.asList(movieData[2].split(","));
-                    list.replaceAll(String::trim);
-                    ArrayList<String> categories = new ArrayList<>(list);
-                    //The fourth element in the array is the movies rating
-                    float rating = Float.parseFloat(movieData[3].replace(',', '.'));
-                    //Instantiate new Movie object
-                    IMedia m = new Movie(name, publishingYear, categories, rating);
-                    //Save the new object to the media arraylist.
-                    medias.add(m);
-                }
-                break;
-
-            case "series":
-                //Loop over all the date from the file.
-                for (String s : data) {
-                    //Split each line of data into a String array.
-                    String[] movieData = s.split(";");
-                    //The first element in the array is the series' name
-                    String name = movieData[0].trim();
-                    //The second element in the array is the series' publishing year
-                    String publishingYear = movieData[1].trim();
-                    //The third element in the array is the series' categories
-                    List<String> list = Arrays.asList(movieData[2].split(","));
-                    list.replaceAll(String::trim);
-                    ArrayList<String> categories = new ArrayList<>(list);
-                    //The fourth element in the array is the series' rating
-                    float rating = Float.parseFloat(movieData[3].replace(',', '.'));
-                    //The fifth element in the array is the seasons and episodes
-                    String[] seasonsAndEpisodes = movieData[4].split(",");
-                    //The number of seasons is the length of the above array.
-                    int seasons = seasonsAndEpisodes.length;
-                    int episodes = 0;
-                    for (String str : seasonsAndEpisodes) {
-                        //Adds together all the episodes from the seasons end episodes array.
-                        episodes += Integer.parseInt(str.split("-")[1]);
-                    }
-                    //Instantiate new Series object
-                    IMedia m = new Series(name, publishingYear, categories, rating, seasons, episodes);
-                    //Save the new object to the media arraylist.
-                    medias.add(m);
-                }
-                break;
-
-            default:
-                //If something else is passed in we return an empty arraylist.
-                return new ArrayList<>();
-        }
-        //Return the media arraylist
-        return medias;
     }
 
     private static void displayListOfCategories() {
