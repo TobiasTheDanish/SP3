@@ -7,9 +7,12 @@ public class User{
     private ArrayList<IMedia> watchedMedia;
     private ArrayList<IMedia> savedMedia;
 
-    public User(String username, String password) {
+    private IDataIO dataIO;
+
+    public User(String username, String password, IDataIO dataIO) {
         this.username = username;
         this.password = password;
+        this.dataIO = dataIO;
         watchedMedia = initWatchedMedia(username);
         savedMedia = initSavedMedia(username);
     }
@@ -19,7 +22,7 @@ public class User{
         ArrayList<IMedia> returnList = new ArrayList<>();
 
         //Read the users data based on the given username;
-        String data = FileIO.getSingleUserData(username);
+        String data = this.dataIO.getSingleUserData(username);
 
         /* Data is null if there is no user with that username
            then there is no media data either. Therefore, return an empty arraylist.
@@ -45,7 +48,7 @@ public class User{
         ArrayList<IMedia> returnList = new ArrayList<>();
 
         //Read the users data based on the given username;
-        String data = FileIO.getSingleUserData(username);
+        String data = this.dataIO.getSingleUserData(username);
 
         /* Data is null if there is no user with that username
            then there is no media data either. Therefore, return an empty arraylist.
@@ -78,7 +81,7 @@ public class User{
         //If the list of watched media, does not contain the watched media, it will be added.
         if (!listContainsMedia(watchedMedia, media)) {
             watchedMedia.add(media);
-            FileIO.writeUserDataToFile(this);
+            this.dataIO.writeUserData(this);
             TextUI.displayMessage(media.getName() + " has been added to watched media.");
             //Else it will not be added.
         } else {
@@ -90,7 +93,7 @@ public class User{
         //If the list of saved media, does not contain the saved media, it will be added.
         if (!listContainsMedia(savedMedia, media)) {
             savedMedia.add(media);
-            FileIO.writeUserDataToFile(this);
+            this.dataIO.writeUserData(this);
             TextUI.displayMessage(media.getName() + " has been added to saved media.");
             //Else it will not be added.
         } else {
@@ -105,7 +108,7 @@ public class User{
             //An if statement for removing saved media from the list
             if (m.getName().equals(media.getName())) {
                savedMedia.remove(i);
-               FileIO.writeUserDataToFile(this);
+                this.dataIO.writeUserData(this);
                TextUI.displayMessage(media.getName()+" has been removed from saved media.");
                return;
             }
