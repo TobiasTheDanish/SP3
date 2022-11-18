@@ -1,10 +1,13 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
-public class FileIO {
+public class FileIO implements IDataIO {
 
-    public static ArrayList<String> readFile(String filePath) {
+    @Override
+    public ArrayList<String> readData(String filePath) {
         File file = new File(filePath);
         ArrayList<String> data = new ArrayList<>();
         try {
@@ -21,8 +24,9 @@ public class FileIO {
         return data;
     }
 
-    public static void writeUserDataToFile(User currentUser) {
-        ArrayList<String> data = readFile("data/userdata.csv");
+    @Override
+    public void writeUserData(User currentUser) {
+        ArrayList<String> data = readData("data/userdata.csv");
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).split(",")[0].equals(currentUser.getUsername())) {
                 data.set(i, createUserDataString(currentUser));
@@ -41,8 +45,9 @@ public class FileIO {
         }
     }
 
-    public static void addToFile(User user) {
-        ArrayList<String> data = readFile("data/userdata.csv");
+    @Override
+    public void addUserData(User user) {
+        ArrayList<String> data = readData("data/userdata.csv");
 
         try {
             FileWriter writer = new FileWriter("data/userdata.csv");
@@ -58,8 +63,9 @@ public class FileIO {
         }
     }
 
-    public static String getSingleUserData(String username) {
-        ArrayList<String> data = FileIO.readFile("data/userdata.csv");
+    @Override
+    public String getSingleUserData(String username) {
+        ArrayList<String> data = readData("data/userdata.csv");
 
         for (String s : data) {
             if (s.split(",")[0].equalsIgnoreCase(username)) {
@@ -67,6 +73,78 @@ public class FileIO {
             }
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<IMedia> getMediaData(String filePath, String type) {
+        //The type parameter should tell us whether it's a movie or a series (An enum would be better).
+        //Read the file at located at filePath (FileIO.readFile(filePath)) and save it in an Arraylist<String> called data
+        //Split each string in data, so that we can create a IMedia type object based on the type (either a movie or series)
+        //then add that IMedia to an Arraylist<IMedia>.
+        //When we have looped over all the strings in data, return the Arraylist<IMedia>
+        ArrayList<IMedia> medias = new ArrayList<>();
+        ArrayList<String> data = readData(filePath);
+
+        switch (type) {
+            case "movie":
+                //Loop over all the date from the file.
+                for (String s : data) {
+                    //Split each line of data into a String array.
+                    String[] movieData = s.split(";");
+                    //The first element in the array is the movies name
+                    String name = movieData[0].trim();
+                    //The second element in the array is the movies publishing year
+                    String publishingYear = movieData[1].trim();
+                    //The third element in the array is the movies categories
+                    List<String> list = Arrays.asList(movieData[2].split(","));
+                    list.replaceAll(String::trim);
+                    ArrayList<String> categories = new ArrayList<>(list);
+                    //The fourth element in the array is the movies rating
+                    float rating = Float.parseFloat(movieData[3].replace(',', '.'));
+                    //Instantiate new Movie object
+                    IMedia m = new Movie(name, publishingYear, categories, rating);
+                    //Save the new object to the media arraylist.
+                    medias.add(m);
+                }
+                break;
+
+            case "series":
+                //Loop over all the date from the file.
+                for (String s : data) {
+                    //Split each line of data into a String array.
+                    String[] movieData = s.split(";");
+                    //The first element in the array is the series' name
+                    String name = movieData[0].trim();
+                    //The second element in the array is the series' publishing year
+                    String publishingYear = movieData[1].trim();
+                    //The third element in the array is the series' categories
+                    List<String> list = Arrays.asList(movieData[2].split(","));
+                    list.replaceAll(String::trim);
+                    ArrayList<String> categories = new ArrayList<>(list);
+                    //The fourth element in the array is the series' rating
+                    float rating = Float.parseFloat(movieData[3].replace(',', '.'));
+                    //The fifth element in the array is the seasons and episodes
+                    String[] seasonsAndEpisodes = movieData[4].split(",");
+                    //The number of seasons is the length of the above array.
+                    int seasons = seasonsAndEpisodes.length;
+                    int episodes = 0;
+                    for (String str : seasonsAndEpisodes) {
+                        //Adds together all the episodes from the seasons end episodes array.
+                        episodes += Integer.parseInt(str.split("-")[1]);
+                    }
+                    //Instantiate new Series object
+                    IMedia m = new Series(name, publishingYear, categories, rating, seasons, episodes);
+                    //Save the new object to the media arraylist.
+                    medias.add(m);
+                }
+                break;
+
+            default:
+                //If something else is passed in we return an empty arraylist.
+                return new ArrayList<>();
+        }
+        //Return the media arraylist
+        return medias;
     }
 
     private static String createUserDataString(User user) {
