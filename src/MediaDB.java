@@ -28,33 +28,74 @@ public class MediaDB implements IDataIO
 
     @Override
     //Retrieve all media data based on the type(series or movie) from the db and return it as an Arraylist
-    public ArrayList<IMedia> getMediaData(String path, String type)
-    {
-        ArrayList<IMedia> movies = new ArrayList<IMedia>();
-        establishConnection();
-        String query = "SELECT * FROM movies;";
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
+    public ArrayList<IMedia> getMediaData(String path, String type) {
+        ArrayList<IMedia> medias = new ArrayList<IMedia>();
+        switch(type) {
+            case ("movie"): {
 
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
-                String title = resultSet.getString("title");
-                String publishing_year = resultSet.getString("publishing_year");
-                String category = resultSet.getString("category");
-                List<String> list = Arrays.asList(category.split(","));
-                list.replaceAll(String::trim);
-                ArrayList<String> categories = new ArrayList<>(list);
-                float rating = resultSet.getFloat("rating");
-                Movie movie = new Movie(title, publishing_year, categories, rating);
-                movies.add(movie);
+
+                establishConnection();
+                String query = "SELECT * FROM movies;";
+                try {
+                    PreparedStatement statement = connection.prepareStatement(query);
+
+                    ResultSet resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        String title = resultSet.getString("title");
+                        String publishing_year = resultSet.getString("publishing_year");
+                        String category = resultSet.getString("category");
+                        List<String> list = Arrays.asList(category.split(","));
+                        list.replaceAll(String::trim);
+                        ArrayList<String> categories = new ArrayList<>(list);
+                        float rating = resultSet.getFloat("rating");
+                        Movie movie = new Movie(title, publishing_year, categories, rating);
+                        medias.add(movie);
+                    }
+
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             }
-            System.out.println(resultSet);
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            case ("series"): {
+                establishConnection();
+                String query = "SELECT * FROM series;";
+                try {
+                    PreparedStatement statement = connection.prepareStatement(query);
+
+                    ResultSet resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        String title = resultSet.getString("title");
+                        String publishing_year = resultSet.getString("publishing_year");
+                        String category = resultSet.getString("category");
+                        List<String> list = Arrays.asList(category.split(","));
+                        list.replaceAll(String::trim);
+                        ArrayList<String> categories = new ArrayList<>(list);
+                        float rating = resultSet.getFloat("rating");
+                        String episodesStr = resultSet.getString("episodes");
+                        String[] seasonsAndEpisodes = episodesStr.split(",");
+                        //The number of seasons is the length of the above array.
+                        int seasons = seasonsAndEpisodes.length;
+                        int episodes = 0;
+                        for (String str : seasonsAndEpisodes) {
+                            //Adds together all the episodes from the seasons end episodes array.
+                            episodes += Integer.parseInt(str.split("-")[1]);
+                        }
+                        Series series = new Series(title, publishing_year, categories, rating, seasons, episodes);
+                        medias.add(series);
+                    }
+
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
         }
-        return movies;
-    }
+
+        return medias;
+        }
 
     //TODO: Refactor this together with User's initWatchedMedia and initSavedMedia functions
     @Override
