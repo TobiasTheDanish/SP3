@@ -58,13 +58,35 @@ class MainMenu {
 }
 
 class TextUI {
+    + {static} Scanner scn
     + {static} void displayMessage(String msg)
     + {static} String getInput()
+    + {static} void clearConsole()
 }
 
-class FileIO {
-    + {static} String readFile(String fileName)
-    + {static} void writeToFile(String fileName, String data)
+interface IDataIO {
+    + {abstract} void addUserData(User user)
+    + {abstract} ArrayList<IMedia> getMediaData (String path, String type)
+    + {abstract} String getSingleUserData (String username)
+    + {abstract} ArrayList<String> readData(String path)
+    + {abstract} void writeUserData (User user)
+}
+
+class FileIO implements IDataIO{
+    + void addUserData(User user)
+    + ArrayList<IMedia> getMediaData (String path, String type)
+    + String getSingleUserData (String username)
+    + ArrayList<String> readData(String path)
+    + void writeUserData (User user)
+    + String createUserDataString(User user)
+}
+
+class MediaDB implements IDataIO {
+    + void addUserData(User user)
+    + ArrayList<IMedia> getMediaData (String path, String type)
+    + String getSingleUserData (String username)
+    + ArrayList<String> readData(String path)
+    + void writeUserData (User user)
 }
 
 class Main {
@@ -88,6 +110,7 @@ Main *-- Application
 Application *-- StartMenu
 Application *-- MainMenu
 Application *-- User
+Application *-- IDataIO
 MainMenu *-- IMedia
 User *-- IMedia
 

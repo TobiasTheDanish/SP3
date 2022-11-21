@@ -17,6 +17,7 @@ public class User{
         savedMedia = initSavedMedia(username);
     }
 
+    //TODO: Refactor this to work with db also
     private ArrayList<IMedia> initWatchedMedia(String username) {
         //Initialize a list to store the users media
         ArrayList<IMedia> returnList = new ArrayList<>();
@@ -43,6 +44,7 @@ public class User{
         return returnList;
     }
 
+    //TODO: Refactor this to work with db also
     private ArrayList<IMedia> initSavedMedia(String username) {
         //Initialize a list to store the users media
         ArrayList<IMedia> returnList = new ArrayList<>();
