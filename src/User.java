@@ -17,58 +17,16 @@ public class User{
         savedMedia = initSavedMedia(username);
     }
 
-    //TODO: Refactor this to work with db also
     private ArrayList<IMedia> initWatchedMedia(String username) {
-        //Initialize a list to store the users media
-        ArrayList<IMedia> returnList = new ArrayList<>();
-
-        //Read the users data based on the given username;
-        String data = this.dataIO.getSingleUserData(username);
-
-        /* Data is null if there is no user with that username
-           then there is no media data either. Therefore, return an empty arraylist.
-         */
-        if (data == null) return new ArrayList<>();
-
-        //we split the user string, and get the index[2] because that is where the watched media list is stored
-        String watchedMediaStr = data.split(",")[2];
-        //Return an empty array if the stored value was "null".
-        if (watchedMediaStr.equalsIgnoreCase("null")) return new ArrayList<>();
-
-        //Each media is separated by ":", this way we get the name of each media
-        String[] watchedMedia = watchedMediaStr.split(":");
-
-        for (String mediaName : watchedMedia) {
-            returnList.add(Application.getMediaByName(mediaName));
-        }
-        return returnList;
+        //Returns the users watched media data based on the entered username
+        //if the user does not have any watched media connected this will return an empty arraylist
+        return this.dataIO.getSingleUserMediaData(username, "watched");
     }
 
-    //TODO: Refactor this to work with db also
     private ArrayList<IMedia> initSavedMedia(String username) {
-        //Initialize a list to store the users media
-        ArrayList<IMedia> returnList = new ArrayList<>();
-
-        //Read the users data based on the given username;
-        String data = this.dataIO.getSingleUserData(username);
-
-        /* Data is null if there is no user with that username
-           then there is no media data either. Therefore, return an empty arraylist.
-         */
-        if (data == null) return new ArrayList<>();
-
-        //we split the user string, and get the index[3] because that is where the saved media list is stored
-        String savedMediaStr = data.split(",")[3];
-        //Return an empty array if the stored value was "null".
-        if (savedMediaStr.equalsIgnoreCase("null")) return new ArrayList<>();
-
-        //Each media is separated by ":", this way we get the name of each media
-        String[] savedMedia = savedMediaStr.split(":");
-
-        for (String mediaName : savedMedia) {
-            returnList.add(Application.getMediaByName(mediaName));
-        }
-        return returnList;
+        //Returns the users watched media data based on the entered username
+        //if the user does not have any watched media connected this will return an empty arraylist
+        return this.dataIO.getSingleUserMediaData(username, "saved");
     }
 
     public ArrayList<IMedia> getWatchedMedia() {
@@ -110,7 +68,7 @@ public class User{
             //An if statement for removing saved media from the list
             if (m.getName().equals(media.getName())) {
                savedMedia.remove(i);
-                this.dataIO.writeUserData(this);
+               this.dataIO.writeUserData(this);
                TextUI.displayMessage(media.getName()+" has been removed from saved media.");
                return;
             }

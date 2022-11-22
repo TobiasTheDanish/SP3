@@ -79,7 +79,7 @@ public class StartMenu {
     The .split method returns an array, and we are fetching index[0] as that is where the usernames are stored in the file.
      */
     private static boolean existingUsername(String username, IDataIO dataIO) {
-        ArrayList<String> data = dataIO.readData("data/userdata.csv");
+        ArrayList<String> data = dataIO.readUserData();
         for(int i = 0; i < data.size(); i++) {
             if (data.get(i).split(",")[0].equalsIgnoreCase(username)) {
                 return true;
@@ -92,7 +92,7 @@ public class StartMenu {
     just with index[1] as that is where the passwords are stored.
      */
     private static boolean correctPassword(String password, IDataIO dataIO) {
-        ArrayList<String> data = dataIO.readData("data/userdata.csv");
+        ArrayList<String> data = dataIO.readUserData();
 
         for(int i = 0; i < data.size(); i++) {
             if (data.get(i).split(",")[1].equals(password)) {
