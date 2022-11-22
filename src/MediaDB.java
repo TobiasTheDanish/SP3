@@ -1,21 +1,101 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MediaDB implements IDataIO
 {
-
+    private Connection connection;
+    private final String url = "jdbc:mysql://localhost/sp3+?" + "autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false";
+    private final String username = "root";
+    private final String password = "admin123";
     @Override
+    //Add a new user to the user table with username and password
     public void addUserData(User user) {
-        //Add a new user to the user table with username and password
+        establishConnection();
+        String query = "INSERT INTO users (username, password) VALUES (?,?);";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+
+            statement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public ArrayList<IMedia> getMediaData(String path, String type)
-    {
-        //Retrieve all media data based on the type(series or movie) from the db and return it as an Arraylist
+    //Retrieve all media data based on the type(series or movie) from the db and return it as an Arraylist
+    public ArrayList<IMedia> getMediaData(String path, String type) {
+        ArrayList<IMedia> medias = new ArrayList<IMedia>();
+        switch(type) {
+            case ("movie"): {
 
-        return null;
-    }
+
+                establishConnection();
+                String query = "SELECT * FROM movies;";
+                try {
+                    PreparedStatement statement = connection.prepareStatement(query);
+
+                    ResultSet resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        String title = resultSet.getString("title");
+                        String publishing_year = resultSet.getString("publishing_year");
+                        String category = resultSet.getString("category");
+                        List<String> list = Arrays.asList(category.split(","));
+                        list.replaceAll(String::trim);
+                        ArrayList<String> categories = new ArrayList<>(list);
+                        float rating = resultSet.getFloat("rating");
+                        Movie movie = new Movie(title, publishing_year, categories, rating);
+                        medias.add(movie);
+                    }
+
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
+            case ("series"): {
+                establishConnection();
+                String query = "SELECT * FROM series;";
+                try {
+                    PreparedStatement statement = connection.prepareStatement(query);
+
+                    ResultSet resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        String title = resultSet.getString("title");
+                        String publishing_year = resultSet.getString("publishing_year");
+                        String category = resultSet.getString("category");
+                        List<String> list = Arrays.asList(category.split(","));
+                        list.replaceAll(String::trim);
+                        ArrayList<String> categories = new ArrayList<>(list);
+                        float rating = resultSet.getFloat("rating");
+                        String episodesStr = resultSet.getString("episodes");
+                        String[] seasonsAndEpisodes = episodesStr.split(",");
+                        //The number of seasons is the length of the above array.
+                        int seasons = seasonsAndEpisodes.length;
+                        int episodes = 0;
+                        for (String str : seasonsAndEpisodes) {
+                            //Adds together all the episodes from the seasons end episodes array.
+                            episodes += Integer.parseInt(str.split("-")[1]);
+                        }
+                        Series series = new Series(title, publishing_year, categories, rating, seasons, episodes);
+                        medias.add(series);
+                    }
+
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
+        }
+
+        return medias;
+        }
 
     //TODO: Refactor this together with User's initWatchedMedia and initSavedMedia functions
     @Override
@@ -27,6 +107,7 @@ public class MediaDB implements IDataIO
     @Override
     public ArrayList<String> readData(String path)
     {
+
         //Read all the data from db based on the path given in the parameter
         return null;
     }
@@ -34,5 +115,13 @@ public class MediaDB implements IDataIO
     @Override
     public void writeUserData(User user) {
         //Save the data given in the parameter in the correct tables
+    }
+
+    private void establishConnection(){
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
