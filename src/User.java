@@ -17,18 +17,16 @@ public class User{
         savedMedia = initSavedMedia(username);
     }
 
-    //TODO: Refactor this to work with db also
     private ArrayList<IMedia> initWatchedMedia(String username) {
         //Returns the users watched media data based on the entered username
         //if the user does not have any watched media connected this will return an empty arraylist
         return this.dataIO.getSingleUserMediaData(username, "watched");
     }
 
-    //TODO: Refactor this to work with db also
     private ArrayList<IMedia> initSavedMedia(String username) {
         //Returns the users watched media data based on the entered username
         //if the user does not have any watched media connected this will return an empty arraylist
-        return this.dataIO.getSingleUserMediaData(username, "watched");
+        return this.dataIO.getSingleUserMediaData(username, "saved");
     }
 
     public ArrayList<IMedia> getWatchedMedia() {
@@ -70,7 +68,7 @@ public class User{
             //An if statement for removing saved media from the list
             if (m.getName().equals(media.getName())) {
                savedMedia.remove(i);
-                this.dataIO.writeUserData(this);
+               this.dataIO.writeUserData(this);
                TextUI.displayMessage(media.getName()+" has been removed from saved media.");
                return;
             }

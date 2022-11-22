@@ -6,9 +6,26 @@ import java.util.Scanner;
 
 public class FileIO implements IDataIO {
 
-    @Override
+
     public ArrayList<String> readData(String filePath) {
         File file = new File(filePath);
+        ArrayList<String> data = new ArrayList<>();
+        try {
+            Scanner input = new Scanner(file);
+            input.nextLine();//ignore header
+
+            while (input.hasNextLine()) {
+                data.add(input.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            data = null;
+            System.out.println("Something went wrong");
+        }
+        return data;
+    }
+    @Override
+    public ArrayList<String> readUserData() {
+        File file = new File("data/userdata.csv");
         ArrayList<String> data = new ArrayList<>();
         try {
             Scanner input = new Scanner(file);
