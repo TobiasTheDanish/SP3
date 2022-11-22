@@ -19,7 +19,7 @@ public class MediaDB implements IDataIO
 
     //TODO: Refactor this together with User's initWatchedMedia and initSavedMedia functions
     @Override
-    public String getSingleUserData(String username)
+    public ArrayList<IMedia> getSingleUserMediaData(String username, String type)
     {
         return null;
     }
