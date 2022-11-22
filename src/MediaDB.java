@@ -1,3 +1,4 @@
+import javax.print.attribute.standard.Media;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -198,9 +199,112 @@ public class MediaDB implements IDataIO
     @Override
     public void writeUserData(User user) {
         //Save the data given in the parameter in the correct tables
+        establishConnection();
+        int userID = getUserID(user);
 
+        try {
+
+            for (IMedia m : user.getWatchedMedia()){
+                String query = "INSERT INTO watched_media (user_id, media_id) VALUES (?,?);";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1,userID);
+                if (!databaseWatchedMediaContainsMedia(user, m, connection)){
+                    statement.setInt(2, getMediaID(m));
+                    statement.executeUpdate();
+                }
+            }
+            for (IMedia m : user.getSavedMedia()){
+                String query = "INSERT INTO saved_media (user_id, media_id) VALUES (?,?);";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1,userID);
+                if (!databaseSavedMediaContainsMedia(user, m, connection)){
+                    statement.setInt(2, getMediaID(m));
+                    statement.executeUpdate();
+                }
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
+
+    private boolean databaseSavedMediaContainsMedia(User user, IMedia media, Connection connection){
+
+        int userID = getUserID(user);
+        int mediaID = getMediaID(media);
+        String query2 = "SELECT * FROM saved_media WHERE user_id = ? AND media_id = ?;";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query2);
+            statement.setInt(1,userID);
+            statement.setInt(2, mediaID);
+
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private boolean databaseWatchedMediaContainsMedia(User user, IMedia media, Connection connection){
+
+        int userID = getUserID(user);
+        int mediaID = getMediaID(media);
+        String query2 = "SELECT * FROM watched_media WHERE user_id = ? AND media_id = ?;";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query2);
+            statement.setInt(1,userID);
+            statement.setInt(2, mediaID);
+
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private int getMediaID(IMedia media){
+        establishConnection();
+        String query = "SELECT id FROM media WHERE title = ?;";
+        int mediaID = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, media.getName());
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                mediaID = resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return mediaID;
+    }
+
+    private int getUserID(User user){
+        establishConnection();
+        String userQuery = "SELECT id FROM users WHERE username = ?;";
+        int userID = 0;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(userQuery);
+            statement.setString(1, user.getUsername());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                userID = resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return userID;
+    }
+
 
     private void establishConnection(){
         try {

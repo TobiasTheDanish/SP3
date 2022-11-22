@@ -17,8 +17,6 @@ public class Application {
 
         dataIO = dataInput.equalsIgnoreCase("1")? new MediaDB() : new FileIO();
 
-        System.out.println(dataIO);
-
         //Gets data from the moviedata file
         movies = dataIO.getMediaData("data/moviedata.csv", "movie");
         //Gets data from the seriesdata file
