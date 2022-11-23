@@ -6,4 +6,5 @@ public interface IDataIO {
     ArrayList<IMedia> getSingleUserMediaData(String username, String type);
     ArrayList<String> readUserData();
     void writeUserData(User user);
+    void removeMediaFromSavedMedia(User user, IMedia media);
 }

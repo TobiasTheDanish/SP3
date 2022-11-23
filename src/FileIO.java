@@ -195,6 +195,12 @@ public class FileIO implements IDataIO {
         return medias;
     }
 
+    @Override
+    public void removeMediaFromSavedMedia(User user, IMedia media)
+    {
+        writeUserData(user);
+    }
+
     private static String createUserDataString(User user) {
         String userData = user.getUsername() + "," + user.getPassword() + ",";
 

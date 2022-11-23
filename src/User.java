@@ -68,7 +68,7 @@ public class User{
             //An if statement for removing saved media from the list
             if (m.getName().equals(media.getName())) {
                savedMedia.remove(i);
-               this.dataIO.writeUserData(this);
+               this.dataIO.removeMediaFromSavedMedia(this, media);
                TextUI.displayMessage(media.getName()+" has been removed from saved media.");
                return;
             }
