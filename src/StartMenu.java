@@ -4,8 +4,15 @@ public class StartMenu {
 
     public static User logIn(IDataIO dataIO) {
         String currentPassword;
-        //Assigning the users input to currentUsername.
-        String currentUsername = TextUI.getInput("Please enter a username: ");
+        String currentUsername;
+       do {
+         //Assigning the users input to currentUsername.
+            currentUsername = TextUI.getInput("Please enter a username: ");
+
+       } while (currentUsername == null || currentUsername.trim().equalsIgnoreCase(""));
+
+       //Removing all unwanted spaces from the username.
+       currentUsername = currentUsername.trim();
         /*
            Calling the boolean method existingUsername(), that checks if the users input
            match an already existing username.
