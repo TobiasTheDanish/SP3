@@ -109,9 +109,8 @@ public class MediaDB implements IDataIO
         }
 
         return medias;
-        }
+    }
 
-    //TODO: Refactor this together with User's initWatchedMedia and initSavedMedia functions
     @Override
     public ArrayList<IMedia> getSingleUserMediaData(String username, String type)
     {
@@ -228,6 +227,41 @@ public class MediaDB implements IDataIO
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void removeMediaFromSavedMedia(User user, IMedia media)
+    {
+        int mediaID = getMediaID(media);
+        int userID = getUserID(user);
+        int savedMediaId = 0;
+
+        String savedMediaIdQuery = "SELECT saved_media_id FROM saved_media WHERE user_id = ? AND media_id = ?;";
+        String deleteQuery = "DELETE FROM saved_media WHERE saved_media_id = ?;";
+
+        establishConnection();
+
+        try
+        {
+            PreparedStatement idStatement = connection.prepareStatement(savedMediaIdQuery);
+            idStatement.setInt(1, userID);
+            idStatement.setInt(2, mediaID);
+
+            ResultSet resultSet = idStatement.executeQuery();
+            if (resultSet.next()) {
+                savedMediaId = resultSet.getInt(1);
+            }
+
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            deleteStatement.setInt(1, savedMediaId);
+
+            deleteStatement.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     private boolean databaseSavedMediaContainsMedia(User user, IMedia media, Connection connection){
