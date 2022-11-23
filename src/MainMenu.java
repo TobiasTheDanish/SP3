@@ -64,12 +64,10 @@ public class MainMenu {
 
     public static ArrayList<IMedia> getUsersWatchedMedia(User user) {
         return user.getWatchedMedia();
-
     }
 
     //Add to a
     public static ArrayList<IMedia> getUsersSavedMedia(User user) {
         return user.getSavedMedia();
-
     }
 }
