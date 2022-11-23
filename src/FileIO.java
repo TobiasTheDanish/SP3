@@ -6,9 +6,26 @@ import java.util.Scanner;
 
 public class FileIO implements IDataIO {
 
-    @Override
+
     public ArrayList<String> readData(String filePath) {
         File file = new File(filePath);
+        ArrayList<String> data = new ArrayList<>();
+        try {
+            Scanner input = new Scanner(file);
+            input.nextLine();//ignore header
+
+            while (input.hasNextLine()) {
+                data.add(input.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            data = null;
+            System.out.println("Something went wrong");
+        }
+        return data;
+    }
+    @Override
+    public ArrayList<String> readUserData() {
+        File file = new File("data/userdata.csv");
         ArrayList<String> data = new ArrayList<>();
         try {
             Scanner input = new Scanner(file);
@@ -64,15 +81,46 @@ public class FileIO implements IDataIO {
     }
 
     @Override
-    public String getSingleUserData(String username) {
+    public ArrayList<IMedia> getSingleUserMediaData(String username, String type) {
         ArrayList<String> data = readData("data/userdata.csv");
+        ArrayList<IMedia> returnList = new ArrayList<>();
 
-        for (String s : data) {
-            if (s.split(",")[0].equalsIgnoreCase(username)) {
-                return s;
-            }
+        switch (type) {
+            case "watched":
+                for (String s : data) {
+                    if (s.split(",")[0].equalsIgnoreCase(username)) {
+                        String watchedMediaStr = s.split(",")[2];
+                        //Return an empty array if the stored value was "null".
+                        if (watchedMediaStr.equalsIgnoreCase("null")) return new ArrayList<>();
+
+                        //Each media is separated by ":", this way we get the name of each media
+                        String[] watchedMedia = watchedMediaStr.split(":");
+
+                        for (String mediaName : watchedMedia) {
+                            returnList.add(Application.getMediaByName(mediaName));
+                        }
+                    }
+                }
+                break;
+
+            case "saved":
+                for (String s : data) {
+                    if (s.split(",")[0].equalsIgnoreCase(username)) {
+                        String savedMediaStr = s.split(",")[3];
+                        //Return an empty array if the stored value was "null".
+                        if (savedMediaStr.equalsIgnoreCase("null")) return new ArrayList<>();
+
+                        //Each media is separated by ":", this way we get the name of each media
+                        String[] savedMedia = savedMediaStr.split(":");
+
+                        for (String mediaName : savedMedia) {
+                            returnList.add(Application.getMediaByName(mediaName));
+                        }
+                    }
+                }
+                break;
         }
-        return null;
+        return returnList;
     }
 
     @Override

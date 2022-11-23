@@ -9,7 +9,13 @@ public class Application {
     public static ArrayList<IMedia> series;
 
     public static void run() {
-        dataIO = new FileIO();
+        String dataInput = "";
+        do
+        {
+            dataInput = TextUI.getInput("Press (1) for online or (0) for offline: ");
+        } while (!dataInput.equalsIgnoreCase("1") && !dataInput.equalsIgnoreCase("0"));
+
+        dataIO = dataInput.equalsIgnoreCase("1")? new MediaDB() : new FileIO();
 
         //Gets data from the moviedata file
         movies = dataIO.getMediaData("data/moviedata.csv", "movie");
