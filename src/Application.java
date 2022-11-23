@@ -10,10 +10,12 @@ public class Application {
 
     public static void run() {
         String dataInput = "";
+        TextUI.displayMessage("Welome. \nDataflix has two different ways of storing the necessary data.\n");
+        TextUI.displayMessage("How would you like to access the data within this program? \n 1) Through a database. \n 2) Through local files.");
         do
         {
-            dataInput = TextUI.getInput("Press (1) for online or (0) for offline: ");
-        } while (!dataInput.equalsIgnoreCase("1") && !dataInput.equalsIgnoreCase("0"));
+            dataInput = TextUI.getInputOnSameLine("Your answer: ");
+        } while (!dataInput.equalsIgnoreCase("1") && !dataInput.equalsIgnoreCase("2"));
 
         dataIO = dataInput.equalsIgnoreCase("1")? new MediaDB() : new FileIO();
 
