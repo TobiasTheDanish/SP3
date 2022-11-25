@@ -1,0 +1,19 @@
+Index: src/Series.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\n\npublic class Series extends AMedia {\n\n    private int seasons;\n    private int episodes;\n\n    public Series(String name, String publishingYear, ArrayList<String> categories, float rating, int seasons, int episodes) {\n        super(name, publishingYear, categories, rating);\n        this.seasons = seasons;\n        this.episodes = episodes;\n    }\n\n    public void play() {\n        TextUI.displayMessage(name + \" S\" + seasons + \" : E\" + episodes + \" is now playing...\");\n        pause();\n    }\n    \n    public String getName() {\n        return name;\n    }\n    public String getPublishingYear() {\n        return publishingYear;\n    }\n    public ArrayList<String> getCategories() {\n        return categories;\n    }\n    public float getRating() {\n        return rating;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Series.java b/src/Series.java
+--- a/src/Series.java	(revision ebaf55e4aa798295bc9a04e1376c7cb233d31e56)
++++ b/src/Series.java	(date 1669366865724)
+@@ -15,7 +15,7 @@
+         TextUI.displayMessage(name + " S" + seasons + " : E" + episodes + " is now playing...");
+         pause();
+     }
+-    
++
+     public String getName() {
+         return name;
+     }
